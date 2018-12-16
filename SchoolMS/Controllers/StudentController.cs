@@ -49,7 +49,7 @@ namespace SchoolMS.Controllers
                             
                             studViewObj.TimeZone += ", " + TimeZoneInfo.GetSystemTimeZones().Where(t => t.Id == student.TimeZone).FirstOrDefault()?.DisplayName;
 
-                            studViewObj.From = (student.Gender != 1 ? "Male" : "Female") + ", From India";
+                            studViewObj.From = (student.Gender != 1 ? "Female" : "Male") + ", From India";
 
                             if (student.StudentSubjects != null)
                             {
