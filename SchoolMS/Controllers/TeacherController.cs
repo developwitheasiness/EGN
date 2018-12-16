@@ -148,13 +148,26 @@ namespace SchoolMS.Controllers
                             CertificateTitle = e.CertificateTitle
                         }).ToList();
 
-                        teachViewObj.TeacherRatings = _db.TeacherRatings.ToList().Where(e => e.TeacherId == TeacherId && e.StudentId == Guid.Parse(ApplicationSession.Current.UserID)).ToList().Select(e => new TeacherRatingVM()
+                        if (!String.IsNullOrEmpty(ApplicationSession.Current.UserID))
                         {
-                            Comments = e.Comments,
-                            RatingId = e.Id,
-                            RatingValue = e.RatingValue,
-                            StudentName = e.Student.Name
-                        }).ToList();
+                            teachViewObj.TeacherRatings = _db.TeacherRatings.ToList().Where(e => e.TeacherId == TeacherId && e.StudentId == Guid.Parse(ApplicationSession.Current.UserID)).ToList().Select(e => new TeacherRatingVM()
+                            {
+                                Comments = e.Comments,
+                                RatingId = e.Id,
+                                RatingValue = e.RatingValue,
+                                StudentName = e.Student.Name
+                            }).ToList();
+                        }
+                        else
+                        {
+                            teachViewObj.TeacherRatings = _db.TeacherRatings.ToList().Where(e => e.TeacherId == TeacherId).ToList().Select(e => new TeacherRatingVM()
+                            {
+                                Comments = e.Comments,
+                                RatingId = e.Id,
+                                RatingValue = e.RatingValue,
+                                StudentName = e.Student.Name
+                            }).ToList();
+                        }
                     }
                 }
             }

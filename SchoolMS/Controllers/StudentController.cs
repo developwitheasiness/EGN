@@ -26,7 +26,7 @@ namespace SchoolMS.Controllers
                 {
                     using (var _db = new SchoolMSEntities())
                     {
-                        var student = _db.Students.Find(ApplicationSession.Current.UserID);
+                        var student = _db.Students.Find(Guid.Parse(ApplicationSession.Current.UserID));
 
                         if (student != null)
                         {
@@ -38,18 +38,25 @@ namespace SchoolMS.Controllers
                             //TimeZoneInfo.FindSystemTimeZoneById(zone.Id).GetUtcOffset(utcTime1));
                             //studViewObj.TimeZone = time2.Hour + ":" + time2.Minute;
 
-                            TimeZoneInfo timeInfo = TimeZoneInfo.FindSystemTimeZoneById(zone.Id);
+                            if (zone != null)
+                            {
+                                TimeZoneInfo timeInfo = TimeZoneInfo.FindSystemTimeZoneById(zone.Id);
 
-                            DateTime userTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime1, timeInfo);
-                            studViewObj.TimeZone += userTime.Hour + ":" + userTime.Minute;
-                            ;
+                                DateTime userTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime1, timeInfo);
+                                studViewObj.TimeZone += userTime.Hour + ":" + userTime.Minute;
+                                ;
+                            }
+                            
                             studViewObj.TimeZone += ", " + TimeZoneInfo.GetSystemTimeZones().Where(t => t.Id == student.TimeZone).FirstOrDefault()?.DisplayName;
 
                             studViewObj.From = (student.Gender != 1 ? "Male" : "Female") + ", From India";
 
-                            foreach (var item in student.StudentSubjects)
+                            if (student.StudentSubjects != null)
                             {
-                                studViewObj.Learning += item.SchoolSubject?.Subject + ", ";
+                                foreach (var item in student.StudentSubjects)
+                                {
+                                    studViewObj.Learning += item.SchoolSubject?.Subject + ", ";
+                                }
                             }
 
                             studViewObj.ProfilePhoto = student.ProfilePhoto;
@@ -92,7 +99,7 @@ namespace SchoolMS.Controllers
                                                 Value = g.Id.ToString()
                                             }).ToList();
 
-                        var student = _db.Students.Find(ApplicationSession.Current.UserID);
+                        var student = _db.Students.Find(Guid.Parse(ApplicationSession.Current.UserID));
 
                         if (student != null)
                         {
