@@ -1,0 +1,604 @@
+﻿@model SchoolMS.Models.ViewModels.StudentVM
+@{
+    ViewBag.Title = "Student Profile";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<header class="inner-page-banner">
+    <img src="~/images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Edit Student Profile </h2>
+        <span class="breadcrumb-trail">
+            <a href="/home/dashboard">Home</a> - Edit Student Profile
+        </span>
+    </div>
+</header>
+
+<!-- Register form start Content -->
+<div class="register-form">
+    <h1>Basic Information</h1>
+    <div class="container">
+        <form class="well col-md-10" id="frmStudentPersonalInfo" name="frmStudentPersonalInfo" action="/Student/SaveStudentPersonalInfo" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="epp-img">
+                        <img src="~/images/student/@Model.ProfilePhoto" alt="" title="" />
+                    </span>
+                    <input type="file" name="file" id="file" src="@Model.ProfilePhoto" onchange="encodeImageFileAsURL(this)" placeholder="Image" aria-required="true" accept="image/png,image/jpeg,image/jpg,image/bmp"/>
+                    <span class="epp-title">Edit Profile Photo</span>
+                </div>
+                <div class="col-md-8">
+                    <ul>
+                        <li>
+                            <div class="ep-title">Name</div>
+                            <div class="ep-form">
+                                @Html.HiddenFor(m => m.Id, new { @id = "StudentId", @name = "StudentId" })
+                                @Html.TextBoxFor(m => m.Name, new { @required = "required" })
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">From</div>
+                            <div class="ep-form">
+                                <div class="ep-50">
+                                    <select id="FromCountries" name="FromCountry">
+                                        <option value="1">India</option>
+                                        <option value="2">U.S.</option>
+                                        <option value="3">U.A.E.</option>
+                                    </select>
+                                </div>
+                                <div class="ep-50">
+                                    <select id="FromStates" name="FromState">
+                                        <option value="1">Kolkata</option>
+                                        <option value="2">Delhi</option>
+                                        <option value="3">Mumbai</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Living in</div>
+                            <div class="ep-form">
+                                <div class="ep-50">
+                                    <select id="LivingCountries" name="LivingCountry">
+                                        <option value="1">India</option>
+                                        <option value="2">U.S.</option>
+                                        <option value="3">U.A.E.</option>
+                                    </select>
+                                </div>
+                                <div class="ep-50">
+                                    <select id="LivingStates" name="LivingState">
+                                        <option value="1">Kolkata</option>
+                                        <option value="2">Delhi</option>
+                                        <option value="3">Mumbai</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Time Zone</div>
+                            <div class="ep-form">
+                                @Html.DropDownListFor(m => m.TimeZone, Model.TimeZoneInfos, "-- Select Time Zone --", new { @required = "required" })
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Birth Date</div>
+                            <div class="ep-form">
+                                <div class="ep-50">
+                                    @{
+                                        var dt = new DateTime();
+                                        dt = DateTime.Today;
+                                        var YearsList = new List<SelectListItem>();
+                                        for (int i = dt.Year - 60; i < dt.Year; i++)
+                                        {
+                                            YearsList.Add(new SelectListItem()
+                                            {
+                                                Text = i.ToString(),
+                                                Value = i.ToString()
+                                            });
+                                        }
+                                    }
+                                    @Html.DropDownListFor(m => m.BirthYearOnly, YearsList, new { @id = "BirthYear", @required = "required" })
+                                </div>
+                                <div class="ep-50">
+                                    <div class="ep-50">
+                                        @{
+                                            var MonthList = new List<SelectListItem>()                                                                                                                                                               };
+                                        }
+                                        @Html.DropDownListFor(m => m.BirthMonthOnly, MonthList, new { @id = "BirthMonth" })
+                                    </div>
+                                    <div class="ep-50">
+                                        @{
+                                            var days = System.DateTime.DaysInMonth(Model.BirthYearOnly, Model.BirthMonthOnly);
+                                            var DaysList = new List<SelectListItem>();
+
+                                            for (var item = 1; item <= days; item++)
+                                            {
+                                                DaysList.Add(new SelectListItem()
+                                                {
+                                                    Text = item.ToString(),
+                                                    Value = item.ToString()
+                                                });
+                                            }
+                                        }
+                                        @Html.DropDownListFor(m => m.BirthDateOnly, DaysList, new { @id = "BirthDay" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Gender</div>
+                            <div class="ep-form">
+                                @{
+                                    var GenderList = new List<SelectListItem>()                                                                                                                            };
+                                }
+                                @Html.DropDownListFor(m => m.Gender, GenderList, "-- Select Gender --", new { @id = "Gender", @required = "required" })
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Register form end Content  -->
+<!-- language start Content  -->
+<section class="student-language">
+    <div class="container">
+        <h3>Subjects</h3>
+        <div class="row">
+            <label class="col-sm-3 control-label">
+                Select Subjects you speak or learn
+            </label>
+            <div class="col-sm-12 studentSubjectDiv">
+                @{ 
+                    int index = 0;
+                }
+                @foreach (var item in Model.StudentSubjectList)
+                {
+                    index++;
+                    <div class="row studentSubject">
+                        <div class="col-sm-9">
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => item.GradeId, Model.GradeList, new { @id = "grade_" + index, @name = "grade_" + index, @class = "form-control gradeStudentSubject" })
+                                </div>
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => item.SubjectId, item.SubjectList, new { @id = "subject_" + index, @name = "subject_" + index, @class = "form-control subjectStudentSubject" })
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <label class="margin30">
+                                        <input type="checkbox" class="px learningStudentSubject" checked="@item.IsLearning">
+                                        <span class="lbl">&nbsp;</span>
+                                        <span class="lbl visible-phone">
+                                            <strong>Learning</strong>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <label class="margin30">
+                                        <input type="radio" name="rdoPrimary" class="px primaryStudentSubject" checked="@item.IsPrimary">
+                                        <span class="lbl">&nbsp;</span>
+                                        <span class="lbl visible-phone">
+                                            <strong>Primary</strong>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary removeSubject" title="Delete" type="button"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                }
+                <p><a href="#!" class="addStudentSubject">+ Add more languages</a></p>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary pull-right submitStudentSubject" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- language end Content  -->
+<!-- Student Profile start Content -->
+<section class="student-profile-information register-form">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>Student Profile Information</h3>
+            <form class="row" id="frmStudentProfileInfo" name="frmStudentProfileInfo" action="/Student/SaveStudentProfileInfo" method="post">
+                <div class="col-md-4">Add School Name </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.SchoolName)
+                </div>
+
+                <div class="col-md-4">Add School Grade</div>
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.SchoolGrade, Model.GradeList, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4">What are you looking for</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.LookingFor)
+                </div>
+
+                <div class="col-md-4">Student Short Introduction</div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.ShortIntroduction)
+                </div>
+
+                <div class="col-md-4">Student Long Introduction</div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.LongIntroduction)
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Student Profile end Content -->
+<!-- Student Profile start Content -->
+<section class="student-profile-information register-form grey-bg">
+    <div class="container">
+        <div class="col-md-12" id="frmStudentComm" name="frmStudentComm" action="/Student/SaveStudentCommInfo" method="post">
+            <h3>Edit Communication Tools</h3>
+            <form class="row">
+                <div class="col-md-4">Skype</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Skype)
+                </div>
+
+                <div class="col-md-4">FaceTime</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Facetime)
+                </div>
+
+                <div class="col-md-4">Google Hangouts</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.GoogleHangout)
+                </div>
+
+                <div class="col-md-4">QQ</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.QQ)
+                </div>
+
+                <div class="col-md-4">Wechat</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Webchat)
+                </div>
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Student Profile end Content -->
+<section class="paddiding20">&nbsp;</section>
+<!-- Why EduGatenet? Content -->
+<section class="grey-bg teachers">
+
+    <div class="why-edugrant" id="pliip">
+        <h1>Why EduGatenet?</h1>
+        <div class="container">
+            <div class="row">
+                <div id="news-slider2" class="owl-carousel">
+                    <div class="post-slide2">
+                        <div class="why-img">
+                            <img src="~/images/why01.png" alt="" title="">
+                        </div>
+                        <div class="why-desc">
+                            <h4>Customized learning</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam remam.</p>
+                        </div>
+                    </div>
+                    <div class="post-slide2">
+                        <div class="why-img">
+                            <img src="~/images/why02.png" alt="" title="">
+                        </div>
+                        <div class="why-desc">
+                            <h4>Near by You</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam remam.</p>
+                        </div>
+                    </div>
+                    <div class="post-slide2">
+                        <div class="why-img">
+                            <img src="~/images/why03.png" alt="" title="">
+                        </div>
+                        <div class="why-desc">
+                            <h4>Anytime, Anywhere</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam remam.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Why EduGatenet? Content -->
+
+<script>
+    $(document).ready(function () {
+
+        $("#carouselExampleIndicators").parents("header").hide();
+
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $("#frmStudentPersonalInfo, #frmStudentProfileInfo, #frmStudentComm").parsley();
+
+        var html = "";
+        var currentGradeObj;
+
+        if ($("#FromCountries").val() == 1) {
+            $("#FromStates").html("");
+            html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+            $("#FromStates").append(html);
+        }
+        else if ($("#FromCountries").val() == 2) {
+            $("#FromStates").html("");
+            html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+            $("#FromStates").append(html);
+        }
+        else if ($("#FromCountries").val() == 3) {
+            $("#FromStates").html("");
+            html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+            $("#FromStates").append(html);
+        }
+
+        setTimeout(function () { $("#FromStates").val(model.FromState); }, 500);
+
+        if ($("#LivingCountries").val() == 1) {
+            $("#LivingStates").html("");
+            html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+            $("#LivingStates").append(html);
+        }
+        else if ($("#LivingCountries").val() == 2) {
+            $("#LivingStates").html("");
+            html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+            $("#LivingStates").append(html);
+        }
+        else if ($("#LivingCountries").val() == 3) {
+            $("#LivingStates").html("");
+            html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+            $("#LivingStates").append(html);
+        }
+
+        setTimeout(function () { $("#LivingStates").val(model.LivingState); }, 500);
+
+        $("#FromCountries").val(model.FromCountry);
+        $("#LivingCountries").val(model.LivingCountry);
+
+        $("#FromCountries").on("change", function () {
+            if ($(this).val() == 1) {
+                $("#FromStates").html("");
+                html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+                $("#FromStates").append(html);
+            }
+            else if ($(this).val() == 2) {
+                $("#FromStates").html("");
+                html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+                $("#FromStates").append(html);
+            }
+            else if ($(this).val() == 3) {
+                $("#FromStates").html("");
+                html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+                $("#FromStates").append(html);
+            }
+        })
+
+        $("#LivingCountries").on("change", function () {
+            if ($(this).val() == 1) {
+                $("#LivingStates").html("");
+                html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+                $("#LivingStates").append(html);
+            }
+            else if ($(this).val() == 2) {
+                $("#LivingStates").html("");
+                html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+                $("#LivingStates").append(html);
+            }
+            else if ($(this).val() == 3) {
+                $("#LivingStates").html("");
+                html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+                $("#LivingStates").append(html);
+            }
+        })
+
+        function StudentSaveFun(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Student Save',
+                    text: 'Information updated successfully',
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            }
+        }
+        
+        function GetSubjectList(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                $(currentGradeObj).html("");
+
+                for (var i = 0; i < resp.Data.length; i++) {
+                    $(currentGradeObj).append("<option value='" + resp.Data[i].Value + "'>" + resp.Data[i].Text + "</option>");
+                }
+            }
+        }
+
+        function addSubjectSelection(resp, type) {
+            $(".studentSubjectDiv").append(resp);   
+        }
+
+        $(".addStudentSubject").on("click", function () {
+
+            $.ajax({
+                type: "get",
+                url: "/Student/SubjectSelection",
+                contentType: "html",
+                beforeSend: function () {
+                    $(".LockOn").show();
+                },
+                success: function (resp) {
+                    $(resp).insertBefore(".addStudentSubject");   
+                },
+                complete: function () {
+                    $(".LockOn").hide();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    new PNotify({
+                        title: 'error',
+                        text: xhr.responseText,
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
+                    $(".LockOn").hide();
+                }
+            });
+        })
+
+        $(".submitStudentSubject").on("click", function () {
+            var StudentSubjectDetail = {
+                StudentId: $("#StudentId").val(),
+                subjectList: []
+            }
+
+            var IsDuplicate = false;
+
+            $(".studentSubject").each(function (index) {
+                var StudentSubject = {
+                    GradeId: $(this).find(".gradeStudentSubject").val(),
+                    SubjectId: $(this).find(".subjectStudentSubject").val(),
+                    IsLearning: $(this).find(".learningStudentSubject").prop('checked'),
+                    IsPrimary: $(this).find(".primaryStudentSubject").prop('checked'),
+                    IsDelete: $(this).hasClass("overlay")
+                }
+
+                for (var i = 0; i < StudentSubjectDetail.subjectList.length; i++) {
+                    if (StudentSubjectDetail.subjectList[i].GradeId == StudentSubject.GradeId && StudentSubjectDetail.subjectList[i].SubjectId == StudentSubject.SubjectId) {
+                        IsDuplicate = true;
+                    }
+                }
+
+                StudentSubjectDetail.subjectList.push(StudentSubject);
+            })
+
+            if (IsDuplicate) {
+                StudentSubjectDetail.StudentId = "";
+                StudentSubjectDetail.subjectList = [];
+
+                new PNotify({
+                    title: 'Student Save',
+                    text: "You have selected same Grade or Subject multiple times.",
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                AjaxFunction("post", "/Student/SaveStudentSubjects", "application/x-www-form-urlencoded;charset=UTF-8, "json" StudentSubjectDetail, StudentSaveFun);
+            }
+        })
+
+        //$(".gradeStudentSubject").on("change", function () {
+        //    currentGradeObj = $(this).parents(".studentSubject").find(".subjectStudentSubject");
+        //    AjaxFunction("get", "/Student/GetGradeWiseSubjectList?GradeId=" + $(this).val(), "application/json", "json", "", GetSubjectList);
+        //})
+
+        $(document.body).on("click", ".removeSubject", function () {
+
+            if ($(this).parents(".studentSubject").find(".primaryStudentSubject").prop('checked')) {
+                new PNotify({
+                    title: 'Delete Subject',
+                    text: "Selected Subject is primary subject. Please choose different primary subject and than remove.",
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                $(this).parents(".studentSubject").find('input, textarea, button, select').attr('disabled', 'disabled');
+                $(this).parents(".studentSubject").addClass("overlay");
+            }
+            //$(this).parents(".studentSubject").hide();
+        })
+
+        $("#frmStudentPersonalInfo").submit(function (e) {
+            //e.preventDefault();
+            if ($("#frmStudentPersonalInfo").parsley().validate()) {
+
+                //var StudentPersonalProfile = {
+                //    Id: $("#StudentId").val(),
+                //    Name: $("#Name").val(),
+                //    FromCountry: $("#FromCountries").val(),
+                //    FromState: $("#FromStates").val(),
+                //    LivingCountry: $("#LivingCountries").val(),
+                //    LivingState: $("#LivingStates").val(),
+                //    TimeZone: $("#TimeZone").val(),
+                //    BirthDateOnly: $("#BirthDay").val(),
+                //    BirthMonthOnly: $("#BirthMonth").val(),
+                //    BirthYearOnly: $("#BirthYear").val(),
+                //    Gender: $("#Gender").val()
+                //}
+
+                //AjaxFunction($("#frmStudentPersonalInfo").attr("method"), $("#frmStudentPersonalInfo").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", StudentPersonalProfile, StudentSaveFun);
+            }
+        });
+
+        $("#frmStudentProfileInfo").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmStudentProfileInfo").parsley().validate()) {
+
+                var StudentBasicProfile = {
+                    Id: $("#StudentId").val(),
+                    SchoolName: $("#SchoolName").val(),
+                    SchoolGrade: $("#SchoolGrade").val(),
+                    LookingFor: $("#LookingFor").val(),
+                    ShortIntroduction: $("#ShortIntroduction").val(),
+                    LongIntroduction: $("#LongIntroduction").val()
+                }
+
+                AjaxFunction($("#frmStudentProfileInfo").attr("method"), $("#frmStudentProfileInfo").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", StudentBasicProfile, StudentSaveFun);
+            }
+        });
+
+        $("#frmStudentComm").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmStudentComm").parsley().validate()) {
+
+                var StudentCommInfo = {
+                    Id: $("#StudentId").val(),
+                    Skype: $("#Skype").val(),
+                    Facetime: $("#Facetime").val(),
+                    GoogleHangout: $("#GoogleHangout").val(),
+                    QQ: $("#QQ").val(),
+                    Webchat: $("#Webchat").val()
+                }
+
+                AjaxFunction($("#frmStudentComm").attr("method"), $("#frmStudentComm").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", StudentCommInfo, StudentSaveFun);
+            }
+        });
+    })
+</script>

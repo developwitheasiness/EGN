@@ -1,0 +1,40 @@
+﻿@model List<SchoolMS.Models.ViewModels.TeacherExperienceVM>
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" width="10%"></th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Year</th>
+            <th class="text-center">Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:void(0)" title="Edit" class="editExperienceDetail" data-id="@item.TeacherExperienceId"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" title="Delete" class="deleteExperienceDetail" data-id="@item.TeacherExperienceId"><i class="fa fa-trash"></i></a>
+                    </td>
+                    <td>
+                        <span>@item.WorkExperienceName</span>
+                    </td>
+                    <td>
+                        <span>@item.WorkExperienceYear</span>
+                    </td>
+                    <td>
+                        <span>@item.WorkExperienceDetails</span>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No experiences found</td>
+            </tr>
+        }
+    </tbody>
+</table>

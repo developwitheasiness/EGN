@@ -1,0 +1,224 @@
+﻿@using SchoolMS.Models
+@model LoginViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EduGatenet! | Log In</title>
+    <!-- Bootstrap -->
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="~/vendors/animate.css/animate.min.css" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="~/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="~/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="~/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+    <style>
+        .LockOn {
+            display: block;
+            visibility: visible;
+            position: fixed;
+            z-index: 99999999 !important;
+            top: 0px;
+            left: 0px;
+            width: 105%;
+            height: 105%;
+            background-color: white;
+            vertical-align: bottom;
+            /*padding-top: 20%;*/
+            filter: alpha(opacity=75);
+            opacity: 0.75;
+            font-size: large;
+            color: blue;
+            font-style: italic;
+            font-weight: 400;
+            background-image: url("../../images/loading.gif");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="login">
+
+    <div id="coverScreen" class="LockOn"></div>
+
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <form id="frmLogin" method="post" action="/Account/Login" data-parsley-validate>
+                        <h1>Login Form</h1>
+                        <div>
+                            <input type="text" id="UserName" name="UserName" class="form-control" placeholder="Username" required="" />
+                        </div>
+                        <div>
+                            <input type="password" id="Password" name="Password" class="form-control" placeholder="Password" required="" />
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" class="flat" checked="checked"> Remember
+                            </label>
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-default submit" value="Log in" />
+                            <a class="reset_pass" href="#">Lost your password?</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div id="register" class="animate form registration_form">
+                <section class="login_content">
+                    <form>
+                        <h1>Create Account</h1>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Username" required="" />
+                        </div>
+                        <div>
+                            <input type="email" class="form-control" placeholder="Email" required="" />
+                        </div>
+                        <div>
+                            <input type="checkbox" class="flat" name="Remember" id="Rememeber"> Remember
+                        </div>
+                        <div>
+                            <button class="btn btn-default submit" href="index.html">Submit</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Parsley -->
+    <script src="~/vendors/parsleyjs/dist/parsley.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/vendors/iCheck/icheck.min.js"></script>
+    <!-- PNotify -->
+    <script src="~/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    <script>
+
+        $(function () {
+
+            $loading = $('.LockOn').hide();
+            $(document)
+                .ajaxStart(function () {
+                    $loading.show();
+                })
+                .ajaxStop(function () {
+                    $loading.hide();
+                });
+        });
+
+        function init_parsley(id) {
+            $(id).parsley().on('field:validated', function () {
+                var ok = $('.parsley-error').length === 0;
+                $('.bs-callout-info').toggleClass('hidden', !ok);
+                $('.bs-callout-warning').toggleClass('hidden', ok);
+            })
+                .on('form:submit', function () {
+                    var LoginDetail = {
+                        UserName: $("#UserName").val(),
+                        Password: $("#Password").val(),
+                        Remember: $("#Password").val(),
+                        Type: "Admin"
+                    }
+
+                    $.ajax({
+                        url: '/stafflogin',
+                        dataType: 'json',
+                        data: { "LoginModel": LoginDetail },
+                        type: 'POST',
+                        success: function (resp) {
+                            if (!resp.IsError) {
+                                new PNotify({
+                                    title: 'Login',
+                                    text: 'Access granted. Please wait...',
+                                    type: 'success',
+                                    styling: 'bootstrap3'
+                                });
+                                window.location = "/admin/dashboard";
+                            }
+                            else {
+                                new PNotify({
+                                    title: 'error',
+                                    text: resp.Message,
+                                    type: 'error',
+                                    styling: 'bootstrap3'
+                                });
+                            }
+                        },
+                        error: function (req, status, err) {
+                            console.log('something went wrong', status, err);
+                        }
+                    });
+
+                    return false; // Don't submit form for this demo
+                });
+
+            //if (typeof (parsley) === 'undefined') { return; }
+            //console.log('init_parsley');
+
+            //$/*.listen*/('parsley:field:validate', function () {
+            //    validateFront();
+            //});
+            //$(id + ' .btn').on('click', function () {
+            //    $(id).parsley().validate();
+            //    validateFront();
+            //});
+            //var validateFront = function () {
+            //    if (true === $(id).parsley().isValid()) {
+            //        $('.bs-callout-info').removeClass('hidden');
+            //        $('.bs-callout-warning').addClass('hidden');
+            //    } else {
+            //        $('.bs-callout-info').addClass('hidden');
+            //        $('.bs-callout-warning').removeClass('hidden');
+            //    }
+            //};
+
+            //$/*.listen*/('parsley:field:validate', function () {
+            //    validateFront();
+            //});
+
+            //try {
+            //    hljs.initHighlightingOnLoad();
+            //} catch (err) { }
+
+        };
+
+        init_parsley("#frmLogin");
+
+                    //$(function () {
+                    //    if ($("input.flat")[0]) {
+                    //        $(document).ready(function () {
+                    //            $('input.flat').iCheck({
+                    //                checkboxClass: 'icheckbox_flat-green',
+                    //                radioClass: 'iradio_flat-green'
+                    //            });
+                    //        });
+                    //    }
+                    //})
+
+    </script>
+
+</body>
+</html>

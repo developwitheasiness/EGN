@@ -1,0 +1,574 @@
+﻿@using SchoolMS.Models
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Edugatenet | @ViewBag.Title</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/full-slider.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="~/Content/fontawesome-all.css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/owl.theme.min.css">
+
+    <!-- PNotify -->
+    <link href="~/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="~/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="~/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    <link href="~/Content/parsley.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/style.css">
+
+    <style>
+
+        .LockOn {
+            display: block;
+            visibility: visible;
+            position: fixed;
+            z-index: 99999999 !important;
+            top: 0px;
+            left: 0px;
+            width: 105%;
+            height: 105%;
+            background-color: white;
+            vertical-align: bottom;
+            /*padding-top: 20%;*/
+            filter: alpha(opacity=75);
+            opacity: 0.75;
+            font-size: large;
+            color: blue;
+            font-style: italic;
+            font-weight: 400;
+            background-image: url("../../images/loading.gif");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .redimp {
+            color: #E74C3C !important;
+        }
+
+        .hoverhand {
+            cursor: pointer !important;
+        }
+
+        .overlay {
+            /*background: #e9e9e9;
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;*/
+            opacity: 0.5;
+        }
+    </style>
+
+</head>
+
+@*<body leftmargin="0" rightmargin="0" topmargin="0" bottommargin="0" marginheight="0" marginwidth="0">
+        @RenderBody()
+
+    </body>*@
+
+<body>
+    <div id="coverScreen" class="LockOn"></div>
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="navbar-brand" href="/home/dashboard">
+                            <img src="~/images/brand.png" alt="" title="" />
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        @if (!SchoolMS.Common.ApplicationSession.Current.IsLoggedIn)
+                        {
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                        <a href="#">Arabic</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a href="#">English</a>
+                                    </li>
+                                <li class="nav-item login">
+                                    <a data-toggle="modal" href="#myTeacherModal">Teacher Login</a>
+                                </li>
+                                <li class="nav-item login">
+                                    <a data-toggle="modal" href="#myModal">Student Login</a>
+                                </li>
+                                <li class="nav-item login">
+                                    <a href="/student/login">Sign Up</a>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="navbar-nav second-head">
+                                <li class="nav-item">
+                                    <a href="#">Arabic</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="#">English</a>
+                                </li>
+                                @if (SchoolMS.Common.ApplicationSession.Current.LoginUser == "Student")
+                                {
+                                    <li class="nav-item">
+                                        <a href="#">Find a Teacher</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    @if (SchoolMS.Common.ApplicationSession.Current.LoginUser == "Student")
+                                    {
+                                        <a a href="/view-profile"><img src="images/user-silhouette.png" alt="" title="" /></a>
+                                    }
+                                    else
+                                    {
+                                        <a a href="/view-teacher-profile"><img src="images/user-silhouette.png" alt="" title="" /></a>
+                                    }
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"><img src="images/msg.png" alt="" title="" /></a>
+                                </li>
+                                <li class="nav-item user-icon">
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="stp-img"><img src="images/student-profile.png" alt="" title="" /></span> <span class="glyphicon glyphicon-user pull-right"></span></a>
+                                            <ul class="dropdown-menu">
+                                                @if (SchoolMS.Common.ApplicationSession.Current.LoginUser == "Student")
+                                                {
+                                                    <li><a href="/view-profile">View Profile<span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="/profile">Edit Profile<span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                                    <li><a href="/Materials">Materials<span class="glyphicon glyphicon-download pull-right"></span></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="/view-teacher-profile">View Profile<span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                                    <li><a href="/teacher-upload-material">Upload Material<span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="/teacherprofile">Edit Profile<span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+                                                }
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <form method="post" action="/Account/LogOff">
+                                                        @Html.AntiForgeryToken()
+                                                        <button type="submit" class="btn btn-primary">Sign Out</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+   
+
+    <!-- line modal -->
+    <div id="myTeacherModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="lineModalLabel">Log in</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("~/Views/Account/_ExternalLoginsListPartialTeacher.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    @*<form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Keep me Login
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>*@
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- line modal -->
+    <!-- line modal -->
+    <div id="myModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="lineModalLabel">Log in</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    @*<form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Keep me Login
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>*@
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- line modal -->
+
+    @RenderBody();
+
+    <!-- Footer -->
+
+    <div class="footer">
+        <h4 class="text-center">Get in Touch</h4>
+        <div class="container">
+            <div class="f-info">
+                <p>0123 456 7890</p>
+                <a href="mail to:info@edugatenet .com">info@edugatenet .com</a>
+            </div>
+            <div class="f-social">
+                <a href="#"><img src="~/images/f-social01.png"></a>
+                <a href="#"><img src="~/images/f-social02.png"></a>
+                <a href="#"><img src="~/images/f-social03.png"></a>
+                <a href="#"><img src="~/images/f-social04.png"></a>
+                <a href="#"><img src="~/images/f-social05.png"></a>
+            </div>
+            <div class="copyright"><p>Copyright 2018 EduGatenet</p></div>
+        </div>
+    </div>
+    <!-- /.container -->
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/owl.carousel.min.js"></script>
+    <!-- Parsley -->
+    <script src="~/vendors/parsleyjs/dist/parsley.min.js"></script>
+
+    <!-- PNotify -->
+    <script src="~/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="~/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="~/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
+    <script>
+        var $loading;
+        var AjaxType;
+
+        function AjaxFunction(Type, url, CustomContentType, dataType, data, Callback) {
+            AjaxType = Type;
+            $.ajax({
+                type: Type,
+                url: url,
+                //headers: { "Authorization": localstorage1 },
+                //contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+                //contentType: "application/json",
+                contentType: CustomContentType,
+                beforeSend: function () {
+                    $(".LockOn").show();
+                },
+                dataType: dataType,
+                data: data,
+                success: function (resp) {
+                    Callback(resp, AjaxType);
+                },
+                complete: function () {
+                    $(".LockOn").hide();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    new PNotify({
+                        title: 'error',
+                        text: xhr.responseText,
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
+                    $(".LockOn").hide();
+                }
+            });
+        }
+
+        function encodeImageFileAsURL(element) {
+            var file = element.files[0];
+            if (file) {
+
+                var fileExtension = ['jpeg', 'jpg', 'png', 'bmp'];
+                if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
+                    new PNotify({
+                        title: 'error',
+                        text: "Only formats are allowed : " + fileExtension.join(', '),
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
+                    $(element).val("");
+                    $(".previewimage").attr("src", "");
+                    return false;
+                }
+                else {
+                    var img = new Image();
+
+                    img.src = window.URL.createObjectURL(file);
+
+                    img.onload = function () {
+                        var width = img.naturalWidth,
+                            height = img.naturalHeight;
+
+                        window.URL.revokeObjectURL(img.src);
+
+                        //uncomment following if else code if you want to restrict size of the image file
+                        //if (width <= 500 && height <= 500) {
+                        $(".previewimage").attr("src", imageURL);
+                        //}
+                        //else {
+                        //    new PNotify({
+                        //        title: 'error',
+                        //        text: 'Image size exceeded.Height must be less then or equal to 500 and Width must be less than or equal to 500',
+                        //        type: 'error',
+                        //        styling: 'bootstrap3'
+                        //    });
+                        //    $(element).val("");
+                        //    $(".previewimage").attr("src", "");
+                        //}
+                    };
+                }
+
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    imageURL = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        function ResetForm(obj) {
+            $(obj).find("input[type=text], textarea").val("");
+        }
+
+        $(function () {
+
+            $loading = $('.LockOn').hide();
+            $(document)
+                .ajaxStart(function () {
+                    $loading.show();
+                })
+                .ajaxStop(function () {
+                    $loading.hide();
+                });
+        });
+    </script>
+
+    <script>
+        var x, i, j, selElmnt, a, b, c;
+        /*look for any elements with the class "custom-select":*/
+        x = document.getElementsByClassName("custom-select");
+        for (i = 0; i < x.length; i++) {
+            selElmnt = x[i].getElementsByTagName("select")[0];
+            /*for each element, create a new DIV that will act as the selected item:*/
+            a = document.createElement("DIV");
+            a.setAttribute("class", "select-selected");
+            a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+            x[i].appendChild(a);
+            /*for each element, create a new DIV that will contain the option list:*/
+            b = document.createElement("DIV");
+            b.setAttribute("class", "select-items select-hide");
+            for (j = 0; j < selElmnt.length; j++) {
+                /*for each option in the original select element,
+                create a new DIV that will act as an option item:*/
+                c = document.createElement("DIV");
+                c.innerHTML = selElmnt.options[j].innerHTML;
+                c.addEventListener("click", function (e) {
+                    /*when an item is clicked, update the original select box,
+                    and the selected item:*/
+                    var y, i, k, s, h;
+                    s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                    h = this.parentNode.previousSibling;
+                    for (i = 0; i < s.length; i++) {
+                        if (s.options[i].innerHTML == this.innerHTML) {
+                            s.selectedIndex = i;
+                            h.innerHTML = this.innerHTML;
+                            y = this.parentNode.getElementsByClassName("same-as-selected");
+                            for (k = 0; k < y.length; k++) {
+                                y[k].removeAttribute("class");
+                            }
+                            this.setAttribute("class", "same-as-selected");
+                            break;
+                        }
+                    }
+                    h.click();
+                });
+                b.appendChild(c);
+            }
+            x[i].appendChild(b);
+            a.addEventListener("click", function (e) {
+                /*when the select box is clicked, close any other select boxes,
+                and open/close the current select box:*/
+                e.stopPropagation();
+                closeAllSelect(this);
+                this.nextSibling.classList.toggle("select-hide");
+                this.classList.toggle("select-arrow-active");
+            });
+        }
+        function closeAllSelect(elmnt) {
+            /*a function that will close all select boxes in the document,
+            except the current select box:*/
+            var x, y, i, arrNo = [];
+            x = document.getElementsByClassName("select-items");
+            y = document.getElementsByClassName("select-selected");
+            for (i = 0; i < y.length; i++) {
+                if (elmnt == y[i]) {
+                    arrNo.push(i)
+                } else {
+                    y[i].classList.remove("select-arrow-active");
+                }
+            }
+            for (i = 0; i < x.length; i++) {
+                if (arrNo.indexOf(i)) {
+                    x[i].classList.add("select-hide");
+                }
+            }
+        }
+        /*if the user clicks anywhere outside the select box,
+        then close all select boxes:*/
+        document.addEventListener("click", closeAllSelect);</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //$(".carousel-inner").html('<div class="carousel-item active" style="background-image: url("../../images/ slider01.jpg")"><div class= "carousel-caption d-none d-md-block"><h1>Find Amazing<span> Teacher </br> </span> Education < span > Group</span > or Education < span > Center</span ></h1></div></div><div class="carousel-item" style="background-image: url("../../images/slider02.jpg")"><div class="carousel-caption d-none d-md-block"><h1>Find Amazing<span> Teacher </br></span> Education <span>Group</span> or Education <span>Center</span></h1></div></div><div class="carousel-item" style="background-image: url("../../images/slider03.jpg")"><div class="carousel-caption d-none d-md-block"><h1>Find Amazing<span> Teacher </br></span> Education <span>Group</span> or Education <span>Center</span></h1></div></div>');
+
+            $("#news-slider2").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+            $("#news-slider3").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+            $("#news-slider4").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+            $("#news-slider5").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+            $("#news-slider6").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+            $("#news-slider7").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+            $("#news-slider8").owlCarousel({
+                items: 3,
+                itemsDesktop: [1199, 2],
+                itemsDesktopSmall: [980, 2],
+                itemsMobile: [600, 1],
+                pagination: true,
+                navigationText: false,
+                autoPlay: false
+            });
+        });</script>
+    <script>
+        function activaTab(tab) {
+            $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        };
+
+        //activaTab('bbb');</script>
+    <script>
+        $(".jumper").on("click", function (e) {
+
+            e.preventDefault();
+
+            $("body, html").animate({
+                scrollTop: $($(this).attr('href')).offset().top
+            }, 600);
+
+        });</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("select").change(function () {
+                $(this).find("option:selected").each(function () {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue) {
+                        $(".box").not("." + optionValue).hide();
+                        $("." + optionValue).show();
+                    } else {
+                        $(".box").hide();
+                    }
+                });
+            }).change();
+        });</script>
+</body>
+</html>

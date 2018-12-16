@@ -1,0 +1,45 @@
+﻿@model List<SchoolMS.Models.ViewModels.TeacherProffCoursesVM>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" width="10%"></th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Charges</th>
+            <th class="text-center">More Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                <a href="javascript:void(0)" title="Edit" class="editProffDetail" data-id="@item.TeacherProffId"><i class="fa fa-edit"></i></a>
+                <a href="javascript:void(0)" title="Delete" class="deleteProffDetail" data-id="@item.TeacherProffId"><i class="fa fa-trash"></i></a>
+            </td>
+            <td>
+                <span>@item.CourseTitle</span>
+            </td>
+            <td>
+                <span>@item.Description</span>
+            </td>
+            <td>
+                <span>@item.Charges</span>
+            </td>
+            <td>
+                <span>@item.ViewMoreDetails</span>
+            </td>
+        </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No proffessional courses found</td>
+            </tr>
+        }
+    </tbody>
+</table>

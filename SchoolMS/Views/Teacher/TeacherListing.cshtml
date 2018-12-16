@@ -1,0 +1,201 @@
+﻿@using SchoolMS.Models.ViewModels
+@model List<ViewTeacherVM>
+
+@{
+    ViewBag.Title = "TeacherListing";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<header class="inner-page-banner">
+    <img src="/images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Teachers</h2>
+        <span class="breadcrumb-trail">
+            <a href="/">Home</a> - Teachers
+        </span>
+    </div>
+</header>
+
+<!-- Teacher page -->
+<div class="teacher-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="filter_option">
+                    <img src="/images/teacher/teacher-1.jpg" alt="" title="">
+                    <span class="filter-title">Teacher type</span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="filter_option">
+                    <img src="/images/teacher/teacher-2.jpg" alt="" title="">
+                    <span class="filter-title">From</span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="filter_option">
+                    <img src="/images/teacher/teacher-3.jpg" alt="" title="">
+                    <span class="filter-title">Hourly rate</span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="filter_option">
+                    <img src="/images/teacher/teacher-4.jpg" alt="" title="">
+                    <span class="filter-title">Teacher speaks</span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="filter_option">
+                    <img src="/images/teacher/teacher-5.jpg" alt="" title="">
+                    <span class="filter-title">Advanced/Native</span>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="filter_option">
+                    <img src="/images/teacher/teacher-6.jpg" alt="" title="">
+                    <span class="filter-title">Skills</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end -->
+
+<div class="teacher-details-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>We found 800 teachers</p>
+            </div>
+
+            <div class="col-lg-9">
+                @foreach (var item in Model)
+                {
+                    <div class="teacher-card-container">
+                        <div class="teacher-card-left">
+                            <img class="teacher-card-teacher-type" src="/images/teacher/professional-teacher.png" alt="" title="">
+
+                            <div class="teacher-card-avatar">
+                                <a href="/Teacher/ViewTeacherDetail?TeacherId=@item.TeacherId"><img src="@item.ProfilePhoto" alt="" title=""></a>
+                                <div class="teacher-card-rating">
+                                    <div class="teacher-card-rating-stars">
+                                        <img src="/images/teacher/teacher-reting-star.png" alt="" title="">
+                                        <p class="hidden-xs teacher-lessons">294 Lessons</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="teacher-card-content">
+                                <h3>@item.TeacherName</h3>
+                                <div class="teacher-card-teaches">
+                                    <p>Teaches</p>
+                                    <h6>
+                                        @{
+                                            var result = string.Join(",", item.Subjects);
+                                        }
+                                        @result
+                                    </h6>
+                                </div>
+                                <div class="teacher-card-favorite-teacher"><img src="/images/teacher/heart-empty.svg"></div>
+                            </div>
+                        </div>
+
+                        <div class="hidden-xs teacher-card-right">
+                            <div class="tabbable-panel">
+                                <div class="tabbable-line">
+                                    <ul class="nav nav-tabs ">
+                                        <li class="active">
+                                            <a href="#tab_default_1" data-toggle="tab">
+                                                Availability
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_default_2" data-toggle="tab">
+                                                Video
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_default_3" data-toggle="tab">
+                                                Intro
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_default_1">
+                                            <p>
+                                                Availability
+                                            </p>
+                                            <p>
+                                                Duis autem eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
+                                            </p>
+
+                                        </div>
+                                        <div class="tab-pane" id="tab_default_2">
+                                            <p>
+                                                Video
+                                            </p>
+                                            <p>
+                                                Video Coming Soon...
+                                            </p>
+
+                                        </div>
+                                        <div class="tab-pane" id="tab_default_3">
+                                            <p>
+                                                Intro
+                                            </p>
+                                            <p>
+                                                Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci.
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end teacher listing -->
+                                                }
+                /**/
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="teacher-right-holder">
+                    <img src="/images/teacher/Satisfaction_Guarantee_icon.svg" alt="" title="">
+                    <h6>100% Satisfaction Guarantee</h6>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+
+                <div class="teacher-right-holder">
+                    <h6>Tips for new students</h6>
+                    <ul>
+                        <li>
+                            What are italki Credits?
+                        </li>
+                        <li>How to find the right teacher on italki? </li>
+                        <li>How do I schedule a lesson with an italki teacher? </li>
+                        <li>
+                            It's my first italki lesson! What should I do?
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="teacher-right-holder">
+
+                    <h6>Want to be a teacher?</h6>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

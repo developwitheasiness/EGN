@@ -1,0 +1,58 @@
+﻿@model List<SchoolMS.Models.ViewModels.TeacherMaterialUploadView>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" width="10%"></th>
+            <th class="text-center" width="10%">Is Public</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Grade</th>
+            <th class="text-center">Subject</th>
+            <th class="text-center">Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:void(0)" title="Edit" class="editTeacherMaterial" data-id="@item.Id"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" title="Delete" class="deleteTeacherMaterial" data-id="@item.Id"><i class="fa fa-trash"></i></a>
+                    </td>
+                    <td class="text-center">
+                        @if (item.IsPublic)
+                        {
+                            <i class="fa fa-check"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times"></i>
+                        }
+                    </td>
+                    <td>
+                        <span class="Title">@item.Title</span>
+                    </td>
+                    <td>
+                        <span class="Title">@item.GradeName</span>
+                    </td>
+                    <td>
+                        <span class="Title">@item.SubjectName</span>
+                    </td>
+                    <td style="text-align:center">
+                        <span>
+                            <a href="/Teacher/Download?FilePath=@item.Path" class="btn btn-default"><i class="fa fa-download"></i> @item.FileName</a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No materials found</td>
+            </tr>
+        }
+    </tbody>
+</table>

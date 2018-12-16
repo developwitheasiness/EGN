@@ -1,0 +1,97 @@
+﻿@using SchoolMS.Models.ViewModels
+
+@model MaterialViewVM
+
+@{
+    ViewBag.Title = "Materials";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<header class="inner-page-banner">
+    <img src="images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Download Material </h2>
+        <span class="breadcrumb-trail">
+            <a href="#">Home</a> - Download Material
+        </span>
+    </div>
+</header>
+
+<div class="register-form">
+    <h1>Download Material</h1>
+</div>
+
+<section class="student-profile-information register-form grey-bg">
+    <div class="container">
+        <div class="col-md-12">
+            @*<h3>Upload Material </h3>*@
+            <form class="row" id="frmMaterial" name="frmMaterial" method="post">
+
+                <div class="col-md-4">
+                    @Html.DropDownListFor(m => m.GradeId, Model.GradeList, "-- Select Grade", new { @class = "form-control", @required = "required" })
+                </div>
+
+                <div class="col-md-4">
+                    @Html.DropDownListFor(m => m.SubjectId, new List<SelectListItem>(), "-- Select Subject", new { @class = "form-control", @required = "required" })
+                </div>
+
+                <div class="col-md-4">
+                    <button class="btn btn-primary btnSearch" style="margin-top:9px;" type="submit"><i class="fa fa-search"></i> Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-12 tableMaterials" style="margin-top: 10px;">
+
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $(function () {
+        $("#carouselExampleIndicators").parents("header").hide();
+
+        $("#frmMaterial").parsley();
+    })
+
+    function GetSubjectList(resp, type) {
+        if (resp.IsError) {
+            new PNotify({
+                title: 'error',
+                text: resp.Message,
+                type: 'error',
+                styling: 'bootstrap3'
+            });
+        }
+        else {
+            $("#SubjectId").html("");
+            $("#SubjectId").append("<option value=''>-- Select Subject --</option>");
+
+            for (var i = 0; i < resp.Data.length; i++) {
+                $("#SubjectId").append("<option value='" + resp.Data[i].Value + "'>" + resp.Data[i].Text + "</option>");
+            }
+        }
+    }
+
+    $("#GradeId").on("change", function () {
+        if ($(this).val() == "") {
+            $("#SubjectId").html("<option value=''>-- Select Subject --</option>");
+            return;
+        }
+        AjaxFunction("get", "/Teacher/GetGradeWiseSubjectList?GradeId=" + $(this).val(), "application/json", "json", "", GetSubjectList);
+    })
+
+    function ShowMateriaList(resp, type) {
+        $(".tableMaterials").html(resp);
+    }
+
+    $("#frmMaterial").submit(function (e) {
+        e.preventDefault();
+        if ($("#frmMaterial").parsley().validate()) {
+            AjaxFunction("get", "/Student/MaterialList?GradeId=" + $("#GradeId").val() + "&SubjectId=" + $("#SubjectId").val(), "application/json", "html", "", ShowMateriaList);
+        }
+        else {
+            $(".tableMaterials").html("");
+        }
+    });
+</script>

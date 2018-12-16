@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+}
+<!-- Register form start Content --> 
+	<div class="about cms-page">	
+		<h1>Contact Us </h1>
+		<div class="container">
+			<div class="row">
+			 <div class="col-lg-7 col-sm-12 contact-info">
+			 <h3><span>Contact</span> Info</h3>
+			 <div class="address-contact">
+			  <div class="icon"><img src="images/cmap-icon.png" alt=""/></div>
+			  <div class="cont-content">
+			   <span>Address:</span>
+				Address Comes Here
+			  </div>
+			 </div>
+			 <!--end-->
+			 
+			 <div class="phone-contact">
+			  <div class="icon"><img src="images/ctel-icon.png" alt=""/></div>
+			  <div class="cont-content">
+			   <span>Phone:</span>
+				<a href="tel:01234567890">0123 456 7890</a>
+			  </div>
+			 </div>
+			 <!--end-->
+			 
+			 <div class="phone-contact">
+			  <div class="icon"><img src="images/cmsg-icon.png" alt=""/></div>
+			  <div class="cont-content">
+			   <span>Email:</span>
+				<a href="mailto:info@edugatenet.com" target="_blank">info@edugatenet.com</a>
+			  </div>
+			 </div>
+			 <!--end-->
+			 
+			 <div class="getin-touth">
+			   <h3><span>Getin</span> Touch</h3>
+			   <div class="drop-msg">
+					<form id="contact-form" method="post" action="contact.php" role="form">
+                            <div class="controls padding-zero">
+                                <div class="row">
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+												<label for="Name">Name <span class="red">*</span></label>
+                                        		<div class="form-group">
+                                            <input id="form_name" type="text" name="name" class="form-control" required="required" data-error="Name is required."></div>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+												<label for="Name">Email <span class="red">*</span></label>
+										 <div class="form-group">
+                                             <input id="form_email" type="email" name="email" class="form-control" required="required" data-error="Valid email is required."> 
+									    </div>
+											</div>
+											<div class="col-lg-12">
+												<label for="Name">Telephone <span class="red">*</span></label>
+										 <div class="form-group">
+                                            <input id="form_phone" type="tel" name="tel" pattern="[0-9]{10}" maxlength="15" class="form-control" required="required" data-error="phone no is required.">
+									    </div>
+											</div>
+											<div class="col-lg-12">
+												<label for="Name">Message</label>
+                                        <div class="form-group">
+                                            <textarea id="form_message" name="message" class="form-control" rows="6" data-error="Please,leave us a message."></textarea>
+                                        </div>
+											</div>
+											 
+												<div class="btn"><input type="submit" class="contact-btn" value="SUBMIT"> </div>
+										 
+										</div>
+									 
+                            </div>
+                        </form>
+				 </div>
+			 </div>
+			 
+			</div>
+			
+			<div class="col-lg-5 col-sm-12 contact-map">
+			  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d231282.22622432382!2d55.0876632051749!3d25.075282564218565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai+-+United+Arab+Emirates!5e0!3m2!1sen!2sin!4v1542777710048" width="100%" height="750" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+			 
+			</div>
+		</div>
+	</div>
+	<!-- Register form end Content  -->  

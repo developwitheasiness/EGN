@@ -1,0 +1,40 @@
+﻿
+@model List<SchoolMS.Models.ViewModels.TeacherCertificateVM>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" width="10%"></th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:void(0)" title="Edit" class="editCertificateDetail" data-id="@item.TeacherCertificateId" data-path="@item.CertificatePhoto"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" title="Delete" class="deleteCertificateDetail" data-id="@item.TeacherCertificateId"><i class="fa fa-trash"></i></a>
+                    </td>
+                    <td>
+                        <span class="certificateTitle">@item.CertificateTitle</span>
+                    </td>
+                    <td style="text-align:center">
+                        <span>
+                            <a href="/Teacher/Download?FilePath=@item.CertificatePhoto" class="btn btn-default"><i class="fa fa-download"></i> Download</a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No certificates found</td>
+            </tr>
+        }
+    </tbody>
+</table>

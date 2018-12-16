@@ -1,0 +1,189 @@
+﻿@model SchoolMS.Models.ViewModels.ViewTeacherVM
+
+@{
+    ViewBag.Title = "TeacherDetails";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<header class="inner-page-banner">
+    <img src="images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Teachers</h2>
+        <span class="breadcrumb-trail">
+            <a href="#">Home</a> - Teachers
+        </span>
+    </div>
+</header>
+
+
+
+<div class="teacher-details-left-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="video-panel">
+                    <img src="images/video.jpg" alt="" title="" />
+                </div>
+                <div class="row">
+                    <div class="col-md-3 is-relative text-center teacher-profile-photo">
+                        <div class="is-relative">
+                            <p>
+                                <img src="~/images/teacher/@Model.ProfilePhoto" class="rounded user-avatar" alt="" kp-fallback-avatar="" width="150">
+                            </p>
+                        </div>
+                        <p class="text-muted">
+                            <i class="fa fa-map-marker"></i>
+                            <span>,</span> India<br>
+                            <span tooltip="@Model.TimeZone">
+                                @*14:44&nbsp;UTC+08:00*@
+                                @Model.TimeZone
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="no-margin">@Model.TeacherName</h3>
+                        <p class="text-light-gray">
+                            <i class="fa fa-circle online-status online" ng-class="{online:teacher.is_online}"></i>
+                            <span ng-class="{'text-success':teacher.is_online}" class="text-success">Online</span>
+                        </p>
+                        <div class="grid-gutter-margin-b">
+                            <ul class="list-inline">
+                                <li class="color-pro">
+                                    <!-- ngIf: teacher.is_pro -->
+                                    <i class="fa fa-graduation-cap" ng-if="teacher.is_pro" title="Professional Teacher" style="vertical-align: middle"></i>
+                                    <!-- end ngIf: teacher.is_pro --> <!-- ngIf: !teacher.is_pro -->&nbsp; <span translate="TP003" style="vertical-align: middle">Professional Teacher</span>
+                                </li><!-- ngIf: badgeDisplay != false  && teacher.exam_result_shown_obj != null && teacher.exam_result_shown_obj.status!=2 -->
+                                <li><span class="" style="">@Model.From</span></li>
+                            </ul>
+                            <h2 class="teachers-language"><span translate="C0118">Teaches</span>&nbsp; <!-- ngRepeat: item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level' --><span ng-repeat="item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level'" class="">English<span ng-hide="$last">,&nbsp;</span></span><!-- end ngRepeat: item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level' --><span ng-repeat="item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level'" class="">American Sign Language (ASL)<span ng-hide="$last">,&nbsp;</span></span><!-- end ngRepeat: item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level' --><span ng-repeat="item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level'" class="">Spanish<span ng-hide="$last" class="ng-hide">,&nbsp;</span></span><!-- end ngRepeat: item in teacher.language_obj_s|filter:{is_teaching:1}|orderBy:'-level' --></h2>
+                        </div><ul class="profile_card list-inline">
+                            <li>
+                                <div class="info">
+                                    <span class="text-muted">Rating</span><br><strong class="pull-right text-lg teacher-rate">5.0</strong><div class="" style="padding: 7px 0 8px">
+                                        <span ng-mouseleave="reset()" ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="5" aria-valuenow="5.0" style="color:#ffc237" class="rate text-xs ng-valid" readonly="readonly" ng-model="teacher.teacher_info_obj.pro_rating" state-on="'fa fa-star text-xs'" state-off="'fa fa-star-o  text-xs'" title="5.0">
+                                            <!-- ngRepeat: r in range track by $index -->
+                                            <span ng-repeat-start="r in range track by $index" class="sr-only">(*)</span>
+                                            <i ng-repeat-end="" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon fa text-xs fa-star" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')" ng-attr-title="{{r.title}}" title="one"></i><!-- end ngRepeat: r in range track by $index --><span ng-repeat-start="r in range track by $index" class="sr-only">(*)</span>
+                                            <i ng-repeat-end="" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon fa text-xs fa-star" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')" ng-attr-title="{{r.title}}" title="two"></i><!-- end ngRepeat: r in range track by $index --><span ng-repeat-start="r in range track by $index" class="sr-only">(*)</span>
+                                            <i ng-repeat-end="" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon fa text-xs fa-star" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')" ng-attr-title="{{r.title}}" title="three"></i><!-- end ngRepeat: r in range track by $index --><span ng-repeat-start="r in range track by $index" class="sr-only">(*)</span>
+                                            <i ng-repeat-end="" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon fa text-xs fa-star" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')" ng-attr-title="{{r.title}}" title="four"></i><!-- end ngRepeat: r in range track by $index --><span ng-repeat-start="r in range track by $index" class="sr-only">(*)</span>
+                                            <i ng-repeat-end="" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon fa text-xs fa-star" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')" ng-attr-title="{{r.title}}" title="five"></i><!-- end ngRepeat: r in range track by $index -->
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><div class="info"><span class="text-muted">Students</span><br><strong class="text-lg">519</strong></div></li>
+                            <li><div class="info"><span class="text-muted">Lessons</span><br><strong class="text-lg">3729</strong></div></li>
+                            <li>
+                                <div class="info">
+                                    <div style="padding:4px 0px 5px 0px">
+                                        <img ng-src="images/icon_webcam_available.png" tooltip="Video available" src="images/icon_webcam_available.png">
+                                    </div><!-- ngIf: teacher.has_skype -->
+                                    <span ng-if="teacher.has_skype" class="">
+                                        <img title="Skype" src="images/icon_skype.png">&nbsp;
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Start About the teacher -->
+                <div class="about-teacher-full-desc">
+                    <h3>About the teacher </h3>
+                    <p>
+                        @Model.LongIntroduction
+                    </p>
+                    <!-- End About the teacher -->
+                </div>
+                <!-- Start Subjects Skills -->
+                <div class="about-teacher-full-desc">
+                    <h3>Work Experience</h3>
+                    <ul class="list-unstyled">
+
+                        @if (true)
+                        {
+                            foreach (var item in Model.ExprienceList)
+                            {
+                                <li style="margin-bottom: 10px">
+                                    <ul class="list-inline"><li><strong>@item.WorkExperienceName</strong></li></ul>
+                                    <span class="text-muted">
+                                        <ul class="list-inline"><li>@item.WorkExperienceYear</li></ul>
+                                        <span>@item.WorkExperienceDetails</span>
+                                    </span>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <!-- End Subjects Skills -->
+                </div>
+
+                <div class="about-teacher-full-desc">
+                    <h3>Certificates</h3>
+                    @if (Model.CertificateList != null && Model.CertificateList.Count() > 0)
+                    {
+                        foreach (var item in Model.CertificateList)
+                        {
+                            <div class="certificate">
+                                <img src="@item.CertificatePhoto" alt="" title="" />
+                                <label>@item.CertificateTitle</label>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                            <div class="certificate">
+                                <label>No certificates found.</label>
+                            </div>
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="teacher-detail-right-panel">
+                    <h6><i class="fa fa-globe" aria-hidden="true"></i> Subjects Skills</h6>
+                    <ul>
+                        @foreach (var item in Model.Subjects)
+                        {
+                            <li># @item</li>
+                        }
+                    </ul>
+                </div>
+                <div class="teacher-detail-right-panel">
+                    <h6><i class="fa fa-percent" aria-hidden="true"></i> Teaching Specialities</h6>
+                    <ul class="teaching-speciality">
+                        <li>Beginners</li>
+                        <li>Teenagers</li>
+                        <li>Business</li>
+                        <li>Test Preparation</li>
+                        <li>IELTS</li>
+                        <li>TOEFL</li>
+                    </ul>
+                </div>
+                <div class="teacher-detail-right-panel">
+                    <h6><i class="fa fa-birthday-cake" aria-hidden="true"></i> Teacher since</h6>
+                    <p>@Model.TeacherSince</p>
+                    <h5>Tags</h5>
+                    <ul class="teaching-speciality">
+                        <li>Free Placement Test</li>
+                        <li>IELTS</li>
+                        <li>Noticeable Progress</li>
+                        <li>TOEFL</li>
+                        <li>Accent Upgrade</li>
+                        <li>Engaging</li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- end -->
+<script>
+    $(document).ready(function () {
+        $("#carouselExampleIndicators").parents("header").hide();
+    })
+</script>

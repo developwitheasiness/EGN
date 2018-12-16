@@ -1,0 +1,481 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<header>
+    @Html.Action("SlideImages", "Home")
+    @*<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <!-- <ol class="carousel-indicators"> -->
+            <!-- <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li> -->
+            <!-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li> -->
+            <!-- <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+            <!-- </ol> -->
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active" style="background-image: url('../../images/slider01.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Find Amazing<span> Teacher </br> </span> Education <span>Group</span> or Education <span>Center</span></h1>
+                    </div>
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('../../images/slider02.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Find Amazing<span> Teacher </br></span> Education <span>Group</span> or Education <span>Center</span></h1>
+                    </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('../../images/slider03.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Find Amazing<span> Teacher </br></span> Education <span>Group</span> or Education <span>Center</span></h1>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>*@
+</header>
+<!-- Search Form Content -->
+<section class="search-form">
+    <div class="container">
+        <div class="col-md-12">
+            <form class="row">
+                <span class="col-md-5">
+                    <input type="email" class="form-control" id="FindyourLocation" aria-describedby="Findyourlocation" placeholder="Find Your Location">
+                </span>
+                <span class="col-md-5">
+                    <div class="custom-select">
+                        <select>
+                            <option value="0">Select</option>
+                            <option value="1">Audi</option>
+                            <option value="2">BMW</option>
+                            <option value="3">Citroen</option>
+                            <option value="4">Ford</option>
+                            <option value="5">Honda</option>
+                        </select>
+                    </div>
+                </span>
+                <span class="col-md-2">
+                    <input name="" type="button" value="Search Now" class="btn" />
+                </span>
+            </form>
+
+        </div>
+    </div>
+    <div class="mouse">
+        <a class="jumper" href="#pliip"><img src="~/images/mouse-icon.png" alt="" title="" /></a>
+    </div>
+</section>
+<!-- Search Form Content -->
+<!-- select value -->
+<section class="mobile-teacher-section">
+    <select>
+        <option value="red"><img src="~/images/t1.png" alt="" title=""> Find a Teacher</option>
+        <option value="green">Find a Education Group</option>
+        <option value="blue">Find a Education Center</option>
+    </select>
+    <div class="red box">
+        <h1>2000+ Teachers</h1>
+        <div class="container">
+            <ul id="news-slider6" class="row owl-carousel">
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher01.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher04.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher02.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher05.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher03.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher06.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="green box">
+        <h1>2500+ Teachers</h1>
+        <div class="container">
+            <ul id="news-slider7" class="row owl-carousel">
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher01.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher04.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher02.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher05.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher03.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher06.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="blue box">
+        <h1>4000+ Teachers</h1>
+        <div class="container">
+            <ul id="news-slider8" class="row owl-carousel">
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher01.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher04.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher02.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher05.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="item-box">
+                    <div class="fff">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher03.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                    <div class="fff mt-top30">
+                        <div class="teacher-box">
+                            <img src="~/images/teacher06.jpg" alt="" title="" />
+                            <div class="teacher-name">Name of the Teacher</div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</section>
+<!-- select value-- ->
+
+<!-- Why EduGatenet? Content -->
+<section class="teachers">
+    <div class="allTeacher">
+        <div class="container">
+            <ul class="nav nav-tabs row">
+                <li class="col-md-4"><a href="#aaa" data-toggle="tab" class="active"><img src="~/images/t1.png" alt="" title="" /> Find a Teacher</a></li>
+                <li class="col-md-4"><a href="#bbb" data-toggle="tab"><img src="~/images/t1.png" alt="" title="" /> Find a Education Group</a></li>
+                <li class="col-md-4"><a href="#ccc" data-toggle="tab"><img src="~/images/t1.png" alt="" title="" /> Find a Education Center</a></li>
+            </ul>
+        </div>
+        <div class="tab-content" id="tabs">
+            <div class="tab-pane active" id="aaa">
+                <h1>2000+ Teachers</h1>
+                <div class="container">
+                    <ul id="news-slider3" class="row owl-carousel">
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher01.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher04.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher02.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher05.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher03.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher06.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="bbb">
+                <h1>4000+ Teachers</h1>
+                <div class="container">
+                    <ul id="news-slider4" class="row owl-carousel">
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher01.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher04.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher02.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher05.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher03.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher06.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="ccc">
+                <h1>2500+ Teachers</h1>
+                <div class="container">
+                    <ul id="news-slider5" class="row owl-carousel">
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher01.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher04.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher02.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher05.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-box">
+                            <div class="fff">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher03.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                            <div class="fff mt-top30">
+                                <div class="teacher-box">
+                                    <img src="~/images/teacher06.jpg" alt="" title="" />
+                                    <div class="teacher-name">Name of the Teacher</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Find-Teacher">
+        <a href="#">Find your Teacher</a>
+    </div>
+    <div class="why-edugrant" id="pliip">
+        <h1>Why EduGatenet?</h1>
+        <div class="container">
+            <div class="row">
+                <div id="news-slider2" class="owl-carousel">
+                    <div class="post-slide2">
+                        <div class="why-img">
+                            <img src="~/images/why01.png" alt="" title="">
+                        </div>
+                        <div class="why-desc">
+                            <h4>Customized learning</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam remam.</p>
+                        </div>
+                    </div>
+                    <div class="post-slide2">
+                        <div class="why-img">
+                            <img src="~/images/why02.png" alt="" title="">
+                        </div>
+                        <div class="why-desc">
+                            <h4>Near by You</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam remam.</p>
+                        </div>
+                    </div>
+                    <div class="post-slide2">
+                        <div class="why-img">
+                            <img src="~/images/why03.png" alt="" title="">
+                        </div>
+                        <div class="why-desc">
+                            <h4>Anytime, Anywhere</h4>
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam remam.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Why EduGatenet? Content -->
+<!-- Page Content -->
+<section>
+    <div class="edu-center">
+        <h4 class="text-center">Education Center</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="edu-img"><img src="~/images/edu02.jpg" alt="" title="" /></div>
+                    <div class="edu-add">
+                        <h4>Education Center<br>Name Here</h4>
+                        <p><i class="fas fa-map-marker-alt"></i>Address comes here...</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="edu-add">
+                        <h4>Education Center<br>Name Here</h4>
+                        <p><i class="fas fa-map-marker-alt"></i>Address comes here...</p>
+                    </div>
+                    <div class="edu-img"><img src="~/images/edu01.jpg" alt="" title="" /></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="edu-img"><img src="~/images/edu03.jpg" alt="" title="" /></div>
+                    <div class="edu-add">
+                        <h4>Education Center<br>Name Here</h4>
+                        <p><i class="fas fa-map-marker-alt"></i>Address comes here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

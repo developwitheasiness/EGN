@@ -1,0 +1,106 @@
+﻿@model SchoolMS.Models.ViewModels.StudentInfoViewVM
+
+@{
+    ViewBag.Title = "ViewProfile";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<header class="inner-page-banner">
+    <img src="images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Student View Profile</h2>
+        <span class="breadcrumb-trail">
+            <a href="/home/dashboard">Home</a> - Student View Profile
+        </span>
+    </div>
+</header>
+
+<div class="teacher-details-left-content">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-9">
+
+                <div class="row">
+                    <div class="col-md-3 is-relative text-center teacher-profile-photo">
+                        <div class="is-relative">
+                            <p>
+                                <img class="rounded user-avatar" alt="" kp-fallback-avatar="" src="~/images/student/@Model.ProfilePhoto" width="150">
+                            </p>
+                        </div>
+                        <p class="text-muted">
+                            <i class="fa fa-map-marker"></i>
+                            <span>,</span> China<br>
+                            <span tooltip="@Model.TimeZone">
+                                @*14:44&nbsp;UTC+08:00*@
+                                @Model.TimeZone
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="no-margin">@Model.StudentName</h3>
+                        <p class="text-light-gray">
+                            <i class="fa fa-circle online-status online"></i>
+                            <span class="text-success">Online</span>
+                        </p>
+                        <div class="grid-gutter-margin-b">
+                            <ul class="list-inline">
+                                <li>
+                                    <span ng-show="teacher.origin_city_text_" class="" style="">@Model.From</span>
+                                        </li>
+                                <li><b>Language Skills:</b>Hindi ,English </li>
+                                <li><b>Learning:</b>@Model.Learning</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Start About the teacher -->
+                <div class="about-teacher-full-desc">
+                    <h3>Community Activities</h3>
+                    <ul class="profile_card list-inline student-view-pro">
+                        <li>
+                            <div class="info"><span class="text-muted">Notebook Entries</span><br><strong class="text-lg">0</strong></div>
+                        </li>
+                        <li>
+                            <div class="info"><span class="text-muted">Questions</span><br><strong class="text-lg">0</strong></div>
+                        </li>
+                        <li>
+                            <div class="info"><span class="text-muted">Discussions</span><br><strong class="text-lg">0</strong></div>
+                        </li>
+                        <li>
+                            <div class="info"><span class="text-muted">Friends</span><br><strong class="text-lg">0</strong></div>
+                        </li>
+                        <li>
+                            <div class="info"><span class="text-muted">Points</span><br><strong class="text-lg">0</strong></div>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- Start Subjects Skills -->
+
+
+
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="teacher-detail-right-panel">
+                    <h6><i class="fa fa-edit" aria-hidden="true"></i><a href="/profile">Edit Profile<a></h6>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#carouselExampleIndicators").parents("header").hide();
+    })
+</script>

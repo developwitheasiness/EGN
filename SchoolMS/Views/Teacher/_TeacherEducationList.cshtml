@@ -1,0 +1,41 @@
+﻿@model List<SchoolMS.Models.ViewModels.TeacherEducationVM>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" width="10%"></th>
+            <th class="text-center">University</th>
+            <th class="text-center">Year</th>
+            <th class="text-center">Course / Degree</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:void(0)" title="Edit" class="editEducationDetail" data-id="@item.TeacherEducationId"><i class="fa fa-edit"></i></a>
+                        <a href="javascript:void(0)" title="Delete" class="deleteEducationDetail" data-id="@item.TeacherEducationId"><i class="fa fa-trash"></i></a>
+                    </td>
+                    <td>
+                        <span>@item.UniversityName</span>
+                    </td>
+                    <td>
+                        <span>@item.YearOfPass</span>
+                    </td>
+                    <td>
+                        <span>@item.CourseDegreeName</span>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No educations found</td>
+            </tr>
+        }
+    </tbody>
+</table>

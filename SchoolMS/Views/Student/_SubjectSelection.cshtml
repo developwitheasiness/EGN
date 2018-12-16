@@ -1,0 +1,35 @@
+﻿@model SchoolMS.Models.ViewModels.SubjectSelectionVM
+
+<div class="row studentSubject">
+    <div class="col-sm-9">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-sm-4">
+                @Html.DropDownListFor(m => m.GradeId, Model.GradeList, new { @class = "form-control gradeStudentSubject" })
+            </div>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(m => m.SubjectId, Model.SubjectList, new {@class = "form-control subjectStudentSubject" })
+            </div>
+            <div class="col-sm-2 text-center">
+                <label class="margin30">
+                    <input type="checkbox" class="px learningStudentSubject">
+                    <span class="lbl">&nbsp;</span>
+                    <span class="lbl visible-phone">
+                        <strong>Learning</strong>
+                    </span>
+                </label>
+            </div>
+            <div class="col-sm-2 text-center">
+                <label class="margin30">
+                    <input type="radio" name="rdoPrimary" class="px primaryStudentSubject">
+                    <span class="lbl">&nbsp;</span>
+                    <span class="lbl visible-phone">
+                        <strong>Primary</strong>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <button class="btn btn-primary removeSubject" title="Delete" type="button"><i class="fa fa-trash"></i></button>
+    </div>
+</div>

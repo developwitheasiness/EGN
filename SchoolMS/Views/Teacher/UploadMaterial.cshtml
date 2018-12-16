@@ -1,0 +1,235 @@
+﻿@model SchoolMS.Models.ViewModels.TeacherMaterialUploadVM
+
+@{
+    ViewBag.Title = "Teacher Profile";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+@*<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />*@
+
+<header class="inner-page-banner">
+    <img src="images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Upload Material </h2>
+        <span class="breadcrumb-trail">
+            <a href="#">Home</a> - Upload Material
+        </span>
+    </div>
+</header>
+
+<div class="register-form">
+    <h1>Upload Material <a href="#" title="Show Material Listing" data-toggle="modal" data-target="#teacher-material-modal"><i class="fa fa-list"></i></a></h1>
+</div>
+
+<section class="student-profile-information register-form grey-bg">
+    <div class="container">
+        <div class="col-md-12">
+            @*<h3>Upload Material </h3>*@
+            <form class="row" id="frmTeacherMaterial" name="frmTeacherMaterial" action="/Teacher/SaveTeacherMaterial" method="post" enctype="multipart/form-data">
+
+                <div class="col-md-2">Title </div>
+                <div class="col-md-10">
+                    @Html.HiddenFor(m => m.Id, new { @id = "TeacherMaterialId" })
+                    @Html.HiddenFor(m => m.TeacherId, new { @id = "TeacherId" })
+                    @Html.TextBoxFor(m => m.Title, new { @required = "required" })
+                </div>
+
+                <div class="col-md-2">Select Grade </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.GradeId, Model.GradList, "-- Select Grade", new { @class = "form-control", @required = "required" })
+                </div>
+
+                <div class="col-md-2">Select Subject </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.SubjectId, Model.SubjectList, "-- Select Subject", new { @class = "form-control", @required = "required" })
+                </div>
+
+                <div class="col-md-2">Choose File </div>
+                <div class="col-md-10">
+                    <input type="file" id="file" name="file" accept=".pdf,.doc,.docx" required="required" />
+                </div>
+
+                <div class="col-md-2">Is public </div>
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(m => m.IsPublic)
+                </div>
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    <button class="btn btn-default pull-right Cancel" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div id="teacher-material-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Uploaded Materials</h4>
+            </div>
+            <div class="modal-body teachermateriallist">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        var DeleteObject;
+
+        $("#frmTeacherMaterial").parsley();
+
+        if ('@ViewBag.Message' != "") {
+            new PNotify({
+                title: 'Teacher Save',
+                text: '@ViewBag.Message',
+                type: 'success',
+                styling: 'bootstrap3'
+            });
+        }
+
+        function BindTeacherMaterialList(resp, type) {
+            $(".teachermateriallist").html(resp);
+        }
+
+        $("#teacher-material-modal").on('show.bs.modal', function () {
+            AjaxFunction("Get", "/Teacher/TeacherMaterialList?TeacherId=" + $("#TeacherId").val(), "application/json", "html", "", BindTeacherMaterialList);
+        });
+
+        $("#carouselExampleIndicators").parents("header").hide();
+
+        $('#file').on('change', function () {
+            var myfile = $(this).val();
+            var ext = myfile.split('.').pop();
+            if (ext == "pdf" || ext == "docx" || ext == "doc") {
+
+            } else {
+                new PNotify({
+                    title: 'Teacher Material Upload',
+                    text: 'Only pdf and word files are allowd.',
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+                $('#file').val("");
+            }
+        });
+
+        $(".Cancel").on("click", function () {
+            $("#frmTeacherMaterial").find("input[type=text], textarea, input[type=hidden]").val("");
+            $("#file").val("");
+        })
+
+        function GetSubjectList(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                $("#SubjectId").html("");
+                $("#SubjectId").append("<option value=''>-- Select Subject --</option>");
+
+                for (var i = 0; i < resp.Data.length; i++) {
+                    $("#SubjectId").append("<option value='" + resp.Data[i].Value + "'>" + resp.Data[i].Text + "</option>");
+                }
+            }
+        }
+
+        $("#GradeId").on("change", function () {
+            if ($(this).val() == "") {
+                $("#SubjectId").html("<option value=''>-- Select Subject --</option>");
+                return;
+            }
+            AjaxFunction("get", "/Teacher/GetGradeWiseSubjectList?GradeId=" + $(this).val(), "application/json", "json", "", GetSubjectList);
+        })
+
+        function EditTeacherMaterial(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                $("#TeacherMaterialId").val(resp.Data.Id);
+                $("#Title").val(resp.Data.Title);
+                if (resp.Data.IsPublic) {
+                    $("#IsPublic").attr("checked", "checked");
+                }
+                else {
+                    $("#IsPublic").removeAttr("checked");
+                }
+                $("#GradeId").val(resp.Data.GradeId);
+
+                $("#SubjectId").html("");
+                $("#SubjectId").append("<option value=''>-- Select Subject --</option>");
+                for (var i = 0; i < resp.Data.SubjectList.length; i++) {
+                    $("#SubjectId").append("<option value='" + resp.Data.SubjectList[i].Value + "'>" + resp.Data.SubjectList[i].Text + "</option>");
+                }
+
+                setTimeout(function () {
+                    $("#SubjectId").val(resp.Data.SubjectId);
+                }, 1000);
+                
+                $("#teacher-material-modal").modal("hide");
+            }
+        }
+
+        function DeleteTeacherMaterial(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Material Delete',
+                    text: "Information deleted successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+
+                $(DeleteObject).remove();
+            }
+        }
+
+        $(document.body).on("click", ".editTeacherMaterial", function () {
+            $("#TeacherMaterialId").val($(this).attr("data-id"));
+
+            AjaxFunction("get", "/Teacher/EditTeacherMaterial?TeacherMaterialId=" + $(this).attr("data-id"), "application/json", "json", "", EditTeacherMaterial);
+        })
+
+        $(document.body).on("click", ".deleteTeacherMaterial", function () {
+            $("#TeacherMaterialId").val($(this).attr("data-id"));
+            DeleteObject = $(this).parents("tr");
+            AjaxFunction("get", "/Teacher/DeleteTeacherMaterial?TeacherMaterialId=" + $(this).attr("data-id"), "application/json", "json", "", DeleteTeacherMaterial);
+        })
+
+        $("#frmTeacherMaterial").submit(function (e) {
+            if ($("#frmTeacherMaterial").parsley().validate()) {
+                return true;
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    })
+</script>

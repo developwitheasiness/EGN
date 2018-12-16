@@ -1,0 +1,1156 @@
+﻿@model SchoolMS.Models.ViewModels.TeacherVM
+
+@{
+    ViewBag.Title = "Teacher Profile";
+    Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
+}
+
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+
+<header class="inner-page-banner">
+    <img src="images/inner-page-banner.jpg" alt="" title="" />
+    <div class="inner-page-title">
+        <h2>Edit Teacher Profile </h2>
+        <span class="breadcrumb-trail">
+            <a href="#">Home</a> - Edit Teacher Profile
+        </span>
+    </div>
+</header>
+
+
+<!-- Register form start Content -->
+<div class="register-form">
+    <h1>Basic Information</h1>
+    <div class="container">
+        <form class="well col-md-10" id="frmTeacherPersonalInfo" name="frmTeacherPersonalInfo" action="/Teacher/SaveTeacherPersonalInfo" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="epp-img">
+                        <img src="~/images/teacher/@Model.ProfilePhoto" alt="" title="" />
+                    </span>
+                    <input type="file" name="file" id="file" src="@Model.ProfilePhoto" onchange="encodeImageFileAsURL(this)" placeholder="Image" aria-required="true" accept="image/png,image/jpeg,image/jpg,image/bmp" />
+                    <span class="epp-title">Edit Profile Photo</span>
+                </div>
+
+                <div class="col-md-8">
+                    <ul>
+                        @*<li>
+                                <div class="ep-form">
+                                    <div class="ep-50">
+                                        <div class="col-md-8"><input type="file"></div>
+                                    </div>
+                                    <div class="ep-50">
+                                        <ul>
+                                            <li><a href="#">Edit</a>
+                                            <li><a href="#">Delete</a>
+                                            <li><a href="#">Save</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>*@
+                        <li>
+                            <div class="ep-title">Name</div>
+                            <div class="ep-form">
+                                @Html.HiddenFor(m => m.Id, new { @id = "TeacherId", @name = "TeacherId" })
+                                @Html.TextBoxFor(m => m.Name, new { @required = "required" })
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="ep-title">From</div>
+                            <div class="ep-form">
+                                <div class="ep-50">
+                                    <select id="FromCountries" name="FromCountry">
+                                        <option value="1">India</option>
+                                        <option value="2">U.S.</option>
+                                        <option value="3">U.A.E.</option>
+                                    </select>
+                                </div>
+                                <div class="ep-50">
+                                    <select id="FromStates" name="FromState">
+                                        <option value="1">Kolkata</option>
+                                        <option value="2">Delhi</option>
+                                        <option value="3">Mumbai</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Living in</div>
+                            <div class="ep-form">
+                                <div class="ep-50">
+                                    <select id="LivingCountries" name="LivingCountry">
+                                        <option value="1">India</option>
+                                        <option value="2">U.S.</option>
+                                        <option value="3">U.A.E.</option>
+                                    </select>
+                                </div>
+                                <div class="ep-50">
+                                    <select id="LivingStates" name="LivingState">
+                                        <option value="1">Kolkata</option>
+                                        <option value="2">Delhi</option>
+                                        <option value="3">Mumbai</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Time Zone</div>
+                            <div class="ep-form">
+                                @Html.DropDownListFor(m => m.TimeZone, Model.TimeZoneInfos, "-- Select Time Zone --", new { @required = "required" })
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Birth Date</div>
+                            <div class="ep-form">
+                                <div class="ep-50">
+                                    @{
+                                        var dt = new DateTime();
+                                        dt = DateTime.Today;
+                                        var YearsList = new List<SelectListItem>();
+                                        for (int i = dt.Year - 60; i < dt.Year; i++)
+                                        {
+                                            YearsList.Add(new SelectListItem()
+                                            {
+                                                Text = i.ToString(),
+                                                Value = i.ToString()
+                                            });
+                                        }
+                                    }
+                                    @Html.DropDownListFor(m => m.BirthYearOnly, YearsList, new { @id = "BirthYear", @required = "required" })
+                                </div>
+                                <div class="ep-50">
+                                    <div class="ep-50">
+                                        @{
+                                            var MonthList = new List<SelectListItem>() {
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "1", Value = "1"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "2", Value = "2"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "3", Value = "3"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "4", Value = "4"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "5", Value = "5"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "6", Value = "6"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "7", Value = "7"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "8", Value = "8"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "9", Value = "9"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "10", Value = "10"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "11", Value = "11"},
+                                                                                                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "12", Value = "12"},
+                                                                                                                                                                                                                                                                                                                                                };
+                                        }
+                                        @Html.DropDownListFor(m => m.BirthMonthOnly, MonthList, new { @id = "BirthMonth" })
+                                    </div>
+                                    <div class="ep-50">
+                                        @{
+                                            var days = System.DateTime.DaysInMonth(Model.BirthYearOnly, Model.BirthMonthOnly);
+                                            var DaysList = new List<SelectListItem>();
+
+                                            for (var item = 1; item <= days; item++)
+                                            {
+                                                DaysList.Add(new SelectListItem()
+                                                {
+                                                    Text = item.ToString(),
+                                                    Value = item.ToString()
+                                                });
+                                            }
+                                        }
+                                        @Html.DropDownListFor(m => m.BirthDateOnly, DaysList, new { @id = "BirthDay" })
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ep-title">Gender</div>
+                            <div class="ep-form">
+                                @{
+                                    var GenderList = new List<SelectListItem>() {
+                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "Male", Value = "1" },
+                                                                                                                                                                                                                                                                    new SelectListItem(){ Text = "Female", Value = "2" }
+                                                                                                                                                                                                                                                                };
+                                }
+                                @Html.DropDownListFor(m => m.Gender, GenderList, "-- Select Gender --", new { @id = "Gender", @required = "required" })
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Register form end Content  -->
+<!-- Student Profile start Content -->
+<section class="student-profile-information register-form grey-bg">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>About the teacher  </h3>
+            <form class="row" id="frmTeacherProfileInfo" name="frmTeacherProfileInfo" action="/Teacher/SaveTeacherInfo" method="post">
+
+                <div class="col-md-4">Short description </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.ShortDescription, new { @required = "required" })
+                </div>
+
+                <div class="col-md-4">Long Introduction </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.LongIntroduction, new { @required = "required" })
+                </div>
+                <div class="col-md-4">Teacher since</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.TeacherSince, new { @required = "required" })
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Student Profile end Content -->
+
+<section class="teacher-subject-information register-form">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>Subjects Skills </h3>
+            <form class="row" id="frmTeacherSubejcts" name="frmTeacherSubejcts" action="/Teacher/SaveTeacherSubject" method="post">
+                <div class="col-md-4">Grade </div>
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.GradeId, Model.GradeList, "-- Select Grade --", new { @id = "TeacherGradeSelection", @name = "TeacherGradeSelection" })
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                </div> <div class="col-md-4">Select multiple subjects</div>
+                <div class="col-md-8 multiselectsubject">
+                    <select class="TeacherSubject" multiple="multiple"></select>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="teacher-education-information register-form grey-bg">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>Education <a href="#" title="Show Education Listing" data-toggle="modal" data-target="#teacher-education-modal"><i class="fa fa-list"></i></a> </h3>
+            <form class="row" id="frmTeacherEducation" name="frmTeacherEducation" action="/Teacher/SaveTeacherEducation" method="post">
+
+                <input type="hidden" id="TeacherEducationId" name="TeacherEducationId" />
+                <div class="col-md-4">University name  </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.UniversityName, new { @required = "required" })
+                </div>
+
+                <div class="col-md-4">Year of pass  </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.YearOfPass, new { @required = "required" })
+                </div>
+                <div class="col-md-4">Course/Degree name  </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.CourseDegreeName, new { @required = "required" })
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    @*<button class="btn btn-primary pull-right" type="submit">Edit</button>*@
+                    <button class="btn btn-default pull-right btnCancelEducationEdit" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div id="teacher-education-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Education Details</h4>
+            </div>
+            <div class="modal-body teachereducationlist teacher-details-left-content">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="teacher-experience-information register-form">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>Work Experience  <a href="#" title="Show Experience Listing" data-toggle="modal" data-target="#teacher-experience-modal"><i class="fa fa-list"></i></a></h3>
+            <form class="row" id="frmTeacherExperience" name="frmTeacherExperience" action="/Teacher/SaveTeacherExperience" method="post">
+
+                <input type="hidden" id="TeacherExperienceId" name="TeacherExperienceId" />
+                <div class="col-md-4">Name</div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.WorkExperienceName, new { @required = "required" })
+                </div>
+
+                <div class="col-md-4">Year </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.WorkExperienceYear, new { @required = "required" })
+                </div>
+                <div class="col-md-4">Details </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.WorkExperienceDetails, new { @required = "required" })
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    <button class="btn btn-default pull-right btnCancelExperienceEdit" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div id="teacher-experience-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Experience Details</h4>
+            </div>
+            <div class="modal-body teacherexperiencelist teacher-details-left-content">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="teacher-certificate-information register-form grey-bg">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>Certificates <a href="#" title="Show Certificates Listing" data-toggle="modal" data-target="#teacher-certificate-modal"><i class="fa fa-list"></i></a></h3>
+            <form class="well col-md-10" id="frmTeacherCertificate" name="frmTeacherCertificate" action="/Teacher/SaveTeacherCertificate" method="post" enctype="multipart/form-data">
+
+                <input type="hidden" id="TeacherCertificateId" name="TeacherCertificateId" />
+                <input type="hidden" name="TeacherId" value="@Model.Id"/>
+                <div class="col-md-4">Certificates Title </div>
+                <div class="col-md-8">
+                    @Html.HiddenFor(m => m.Id, new { @name = "StudentId" })
+                    @Html.TextBoxFor(m => m.CertificateTitle, new { @required = "required" })
+                </div>
+
+                <div class="col-md-4">Upload Certificates</div>
+                <div class="col-md-8">
+                    <span class="epp-img">
+                        <img src="" alt="" title="" id="ImgTeacherCertificate" name="ImgTeacherCertificate"/>
+                    </span>
+                    <input type="file" name="file" id="file" src="@Model.CertificatePhoto" onchange="encodeImageFileAsURL(this)" placeholder="Image" aria-required="true" accept="image/png,image/jpeg,image/jpg,image/bmp" />
+                </div>
+
+
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    <button class="btn btn-default pull-right btnCancelCertificateEdit" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div id="teacher-certificate-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Certificate Details</h4>
+            </div>
+            <div class="modal-body teachercertificatelist teacher-details-left-content">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="teacher-proffessional-information register-form">
+    <div class="container">
+        <div class="col-md-12">
+            <h3>Professional courses <a href="#" title="Show Proffessional Courses Listing" data-toggle="modal" data-target="#teacher-proffessionalcourse-modal"><i class="fa fa-list"></i></a> </h3>
+            <form class="row" id="frmTeacherProfCour" name="frmTeacherProfCour" action="/Teacher/SaveTeacherProffCourses" method="post">
+
+                <input type="hidden" id="TeacherProffId" name="TeacherProffId" />
+                <div class="col-md-4">Course title   </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.CourceTitle, new { @required = "required" })
+                </div>
+
+                <div class="col-md-4">Description  </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.Description)
+                </div>
+                <div class="col-md-4">Charges  </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(m => m.Charges, new { @required = "required" })
+                </div>
+                <div class="col-md-4">View more details  </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.ViewMoreDetails, new { @required = "required" })
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    <button class="btn btn-default pull-right btnCancelProffEdit" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<div id="teacher-proffessionalcourse-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">Proffessional Courses Details</h4>
+            </div>
+            <div class="modal-body teacherexperiencelist teacher-details-left-content">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var DeleteObject;
+        //$(".TeacherSubject").multiselect();
+
+        if ('@ViewBag.Message' != "") {
+            new PNotify({
+                title: 'Teacher Save',
+                text: '@ViewBag.Message',
+                type: 'success',
+                styling: 'bootstrap3'
+            });
+        }
+
+        $("#carouselExampleIndicators").parents("header").hide();
+
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $("#frmTeacherPersonalInfo, #frmTeacherProfileInfo, #frmTeacherEducation, #frmTeacherExperience, #frmTeacherCertificate").parsley();
+
+        function BindTeacherEducationList(resp, type) {
+            $(".teachereducationlist").html(resp);
+        }
+
+        function BindTeacherExperienceList(resp, type) {
+            $(".teacherexperiencelist").html(resp);
+        }
+
+        function BindTeacherCertificateList(resp, type) {
+            $(".teachercertificatelist").html(resp);
+        }
+
+        $("#teacher-education-modal").on('show.bs.modal', function () {
+            AjaxFunction("Get", "/Teacher/TeacherEducationList?TeacherId=" + $("#TeacherId").val(),"application/json", "html", "", BindTeacherEducationList);
+        });
+
+        $("#teacher-experience-modal").on('show.bs.modal', function () {
+            AjaxFunction("Get", "/Teacher/TeacherExperienceList?TeacherId=" + $("#TeacherId").val(), "application/json", "html", "", BindTeacherExperienceList);
+        });
+
+        $("#teacher-proffessionalcourse-modal").on('show.bs.modal', function () {
+            AjaxFunction("Get", "/Teacher/TeacherProffCourseList?TeacherId=" + $("#TeacherId").val(), "application/json", "html", "", BindTeacherExperienceList);
+        });
+
+        $("#teacher-certificate-modal").on('show.bs.modal', function () {
+            AjaxFunction("Get", "/Teacher/TeacherCertificateList?TeacherId=" + $("#TeacherId").val(), "application/json", "html", "", BindTeacherCertificateList);
+        });
+
+        var html = "";
+        var currentGradeObj;
+
+        if ($("#FromCountries").val() == 1) {
+            $("#FromStates").html("");
+            html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+            $("#FromStates").append(html);
+        }
+        else if ($("#FromCountries").val() == 2) {
+            $("#FromStates").html("");
+            html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+            $("#FromStates").append(html);
+        }
+        else if ($("#FromCountries").val() == 3) {
+            $("#FromStates").html("");
+            html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+            $("#FromStates").append(html);
+        }
+
+        setTimeout(function () { $("#FromStates").val(model.FromState); }, 500);
+
+        if ($("#LivingCountries").val() == 1) {
+            $("#LivingStates").html("");
+            html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+            $("#LivingStates").append(html);
+        }
+        else if ($("#LivingCountries").val() == 2) {
+            $("#LivingStates").html("");
+            html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+            $("#LivingStates").append(html);
+        }
+        else if ($("#LivingCountries").val() == 3) {
+            $("#LivingStates").html("");
+            html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+            $("#LivingStates").append(html);
+        }
+
+        setTimeout(function () { $("#LivingStates").val(model.LivingState); }, 500);
+
+        $("#FromCountries").val(model.FromCountry);
+        $("#LivingCountries").val(model.LivingCountry);
+
+        $("#FromCountries").on("change", function () {
+            if ($(this).val() == 1) {
+                $("#FromStates").html("");
+                html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+                $("#FromStates").append(html);
+            }
+            else if ($(this).val() == 2) {
+                $("#FromStates").html("");
+                html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+                $("#FromStates").append(html);
+            }
+            else if ($(this).val() == 3) {
+                $("#FromStates").html("");
+                html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+                $("#FromStates").append(html);
+            }
+        })
+
+        $("#LivingCountries").on("change", function () {
+            if ($(this).val() == 1) {
+                $("#LivingStates").html("");
+                html = "<option value='1'>Kolkata</option><option value='2'>Delhi</option><option value='3'>Mumbai</option>";
+                $("#LivingStates").append(html);
+            }
+            else if ($(this).val() == 2) {
+                $("#LivingStates").html("");
+                html = "<option value='1'>California</option><option value='2'>Florida</option><option value='3'>Texas</option>";
+                $("#LivingStates").append(html);
+            }
+            else if ($(this).val() == 3) {
+                $("#LivingStates").html("");
+                html = "<option value='1'>Abu Dhabi</option><option value='2'>Dubai</option><option value='3'>Sharjah</option>";
+                $("#LivingStates").append(html);
+            }
+        })
+
+        function TeacherSaveFun(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Save',
+                    text: 'Information updated successfully',
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+            }
+        }
+
+        function GetSubjectList(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                $(currentGradeObj).html("");
+
+                for (var i = 0; i < resp.Data.length; i++) {
+                    $(currentGradeObj).append("<option value='" + resp.Data[i].Value + "'>" + resp.Data[i].Text + "</option>");
+                }
+            }
+        }
+
+        function TeacherEducationSave(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Save',
+                    text: "Information updated successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+                $("#TeacherEducationId").val("");
+                $("#frmTeacherEducation").find("input[type=text], textarea").val("");
+            }
+        }
+
+        function TeacherEducationDelete(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Education Delete',
+                    text: "Information deleted successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+
+                $(DeleteObject).remove();
+            }
+        }
+
+        $(document.body).on("click", ".editEducationDetail", function () {
+            $("#TeacherEducationId").val($(this).attr("data-id"));
+
+            var trObj = $(this).parents("tr");
+
+            var EducationDetail = [];
+
+            $(trObj).find('td').each(function () {
+                if ($(this).find('span').length > 0) {
+                    EducationDetail.push($(this).find('span').html());
+                }
+            });
+
+            if (EducationDetail.length == 3) {
+                $("#UniversityName").val(EducationDetail[0]);
+                $("#YearOfPass").val(EducationDetail[1]);
+                $("#CourseDegreeName").val(EducationDetail[2]);
+                $("#teacher-education-modal").modal("hide");
+            }
+        })
+
+        $(document.body).on("click", ".btnCancelEducationEdit", function () {
+            $("#TeacherEducationId").val();
+            $("#UniversityName").val();
+            $("#YearOfPass").val();
+            $("#CourseDegreeName").val();
+        })
+
+        $(document.body).on("click", ".deleteEducationDetail", function () {
+
+            DeleteObject = $(this).parents("tr");
+
+            AjaxFunction("Get", "/Teacher/DeleteTeacherEducation?TeacherEducationId=" + $(this).attr("data-id"), "application/json", "json", "", TeacherEducationDelete);
+        })
+
+        function TeacherExperienceSave(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Save',
+                    text: "Information updated successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+                $("#TeacherExperienceId").val("");
+                $("#frmTeacherExperience").find("input[type=text], textarea").val("");
+            }
+        }
+
+        function TeacherExperienceDelete(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Experience Delete',
+                    text: "Information deleted successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+
+                $(DeleteObject).remove();
+            }
+        }
+
+        $(document.body).on("click", ".editExperienceDetail", function () {
+            $("#TeacherExperienceId").val($(this).attr("data-id"));
+
+            var trObj = $(this).parents("tr");
+
+            var ExperienceDetail = [];
+
+            $(trObj).find('td').each(function () {
+                if ($(this).find('span').length > 0) {
+                    ExperienceDetail.push($(this).find('span').html());
+                }
+            });
+
+            if (ExperienceDetail.length == 3) {
+                $("#WorkExperienceName").val(ExperienceDetail[0]);
+                $("#WorkExperienceYear").val(ExperienceDetail[1]);
+                $("#WorkExperienceDetails").val(ExperienceDetail[2]);
+                $("#teacher-experience-modal").modal("hide");
+            }
+        })
+
+        $(document.body).on("click", ".btnCancelExperienceEdit", function () {
+            $("#TeacherExperienceId").val();
+            $("#WorkExperienceName").val();
+            $("#WorkExperienceYear").val();
+            $("#WorkExperienceDetails").val();
+        })
+
+        $(document.body).on("click", ".deleteExperienceDetail", function () {
+
+            DeleteObject = $(this).parents("tr");
+
+            AjaxFunction("Get", "/Teacher/DeleteTeacherExperience?TeacherExperienceId=" + $(this).attr("data-id"), "application/json", "json", "", TeacherExperienceDelete);
+        })
+
+
+        function TeacherProffSave(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Save',
+                    text: "Information updated successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+                $("#TeacherProffId").val("");
+                $("#frmTeacherProfCour").find("input[type=text], textarea").val("");
+            }
+        }
+
+        function TeacherProffDelete(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Proffessional Course Delete',
+                    text: "Information deleted successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+
+                $(DeleteObject).remove();
+            }
+        }
+
+        $(document.body).on("click", ".editProffDetail", function () {
+            $("#TeacherProffId").val($(this).attr("data-id"));
+
+            var trObj = $(this).parents("tr");
+
+            var ProffesionalDetail = [];
+
+            $(trObj).find('td').each(function () {
+                if ($(this).find('span').length > 0) {
+                    ProffesionalDetail.push($(this).find('span').html());
+                }
+            });
+
+            if (ProffesionalDetail.length == 4) {
+                $("#CourceTitle").val(ProffesionalDetail[0]);
+                $("#Description").val(ProffesionalDetail[1]);
+                $("#Charges").val(ProffesionalDetail[2]);
+                $("#ViewMoreDetails").val(ProffesionalDetail[3]);
+                $("#teacher-proffessionalcourse-modal").modal("hide");
+            }
+        })
+
+        $(document.body).on("click", ".btnCancelProffEdit", function () {
+            $("#TeacherProffId").val();
+            $("#CourceTitle").val();
+            $("#Description").val();
+            $("#Charges").val();
+            $("#ViewMoreDetails").val();
+        })
+
+        $(document.body).on("click", ".deleteProffDetail", function () {
+
+            DeleteObject = $(this).parents("tr");
+
+            AjaxFunction("Get", "/Teacher/DeleteTeacherProffCourse?TeacherProffId=" + $(this).attr("data-id"), "application/json", "json", "", TeacherProffDelete);
+        })
+
+        //$("#frmTeacherProfCour").submit(function (e) {
+        //    alert();
+        //    e.preventDefault();
+        //    if ($("#frmTeacherProfCour").parsley().validate()) {
+
+        //        var TeacherProfCourse = {
+        //            TeacherId: $("#TeacherId").val(),
+        //            TeacherProffId: $("#TeacherProffId").val(),
+        //            CourseTitle: $("#CourceTitle").val(),
+        //            Description: $("#Description").val(),
+        //            Charges: $("#Charges").val(),
+        //            ViewMoreDetails: $("#ViewMoreDetails").val()
+        //        }
+
+        //        AjaxFunction($("#frmTeacherProfCour").attr("method"), $("#frmTeacherProfCour").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", TeacherProfCourse, TeacherProffSave);
+        //    }
+        //});
+        
+        function TeacherCertificateDelete(resp, type) {
+            if (resp.IsError) {
+                new PNotify({
+                    title: 'error',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                new PNotify({
+                    title: 'Teacher Certificate Delete',
+                    text: "Information deleted successfully",
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+
+                $(DeleteObject).remove();
+            }
+        }
+
+        $(document.body).on("click", ".editCertificateDetail", function () {
+            var trObj = $(this).parents("tr");
+            $("#TeacherCertificateId").val($(this).attr("data-id"));
+            $("#ImgTeacherCertificate").attr("src", $(this).attr("data-path"));
+            $("#CertificateTitle").val(trObj.find('.certificateTitle').html());
+            $("#frmTeacherCertificate").find("#file").val("");
+            $("#teacher-certificate-modal").modal("hide");
+        })
+
+        $(document.body).on("click", ".btnCancelCertificateEdit", function () {
+            $("#TeacherCertificateId").val("");
+            $("#CertificateTitle").val("");
+            $("#ImgTeacherCertificate").attr("src", "");
+            $("#frmTeacherCertificate").find("#file").val("");
+            $("#file").val("");
+        })
+
+        $(document.body).on("click", ".deleteCertificateDetail", function () {
+
+            DeleteObject = $(this).parents("tr");
+
+            AjaxFunction("Get", "/Teacher/DeleteTeacherCertificate?TeacherCertificateId=" + $(this).attr("data-id"), "application/json", "json", "", TeacherCertificateDelete);
+        })
+
+        $("#frmTeacherProfCour").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmTeacherProfCour").parsley().validate()) {
+
+                var TeacherProfCourse = {
+                    TeacherId: $("#TeacherId").val(),
+                    TeacherProffId: $("#TeacherProffId").val(),
+                    CourseTitle: $("#CourceTitle").val(),
+                    Description: $("#Description").val(),
+                    Charges: $("#Charges").val(),
+                    ViewMoreDetails: $("#ViewMoreDetails").val()
+                }
+
+                AjaxFunction($("#frmTeacherProfCour").attr("method"), $("#frmTeacherProfCour").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", TeacherProfCourse, TeacherProffSave);
+            }
+        });
+
+
+
+        function addSubjectSelection(resp, type) {
+            $(".studentSubjectDiv").append(resp);
+        }
+
+        function GotSubjectList(resp, type) {
+            if (!resp.IsError) {
+
+                var html = "<select class='TeacherSubject' multiple='multiple'>";
+
+                $.each(resp.Data.SubjectList, function () {
+                    if (this.Selected) {
+                        html += "<option value='" + this.Value + "' selected='selected'>" + this.Text + "</option>";
+                    }
+                    else {
+                        html += "<option value='" + this.Value + "'>" + this.Text + "</option>";
+                    }
+                });
+
+                html += "</select>";
+
+                $(".multiselectsubject").html("");
+                $(".multiselectsubject").html(html);
+
+                //setTimeout(function () { $(".TeacherSubject").multiselect(); } , 1000);
+
+                //$(".TeacherSubject").append(optionHtml);
+
+                setTimeout(function () {
+                    $(".TeacherSubject").val(resp.Data.SelectedSubjects);
+                }, 1000);
+            }
+            else {
+                new PNotify({
+                    title: 'Delete Subject',
+                    text: resp.Message,
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+        }
+
+        $(".addStudentSubject").on("click", function () {
+
+            $.ajax({
+                type: "get",
+                url: "/Student/SubjectSelection",
+                contentType: "html",
+                beforeSend: function () {
+                    debugger;
+                    $(".LockOn").show();
+                },
+                success: function (resp) {
+                    $(resp).insertBefore(".addStudentSubject");
+                },
+                complete: function () {
+                    $(".LockOn").hide();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    new PNotify({
+                        title: 'error',
+                        text: xhr.responseText,
+                        type: 'error',
+                        styling: 'bootstrap3'
+                    });
+                    $(".LockOn").hide();
+                }
+            });
+        })
+
+        $(".submitStudentSubject").on("click", function () {
+            var StudentSubjectDetail = {
+                StudentId: $("#StudentId").val(),
+                subjectList: []
+            }
+
+            var IsDuplicate = false;
+
+            $(".studentSubject").each(function (index) {
+                var StudentSubject = {
+                    GradeId: $(this).find(".gradeStudentSubject").val(),
+                    SubjectId: $(this).find(".subjectStudentSubject").val(),
+                    IsLearning: $(this).find(".learningStudentSubject").prop('checked'),
+                    IsPrimary: $(this).find(".primaryStudentSubject").prop('checked'),
+                    IsDelete: $(this).hasClass("overlay")
+                }
+
+                for (var i = 0; i < StudentSubjectDetail.subjectList.length; i++) {
+                    if (StudentSubjectDetail.subjectList[i].GradeId == StudentSubject.GradeId && StudentSubjectDetail.subjectList[i].SubjectId == StudentSubject.SubjectId) {
+                        IsDuplicate = true;
+                    }
+                }
+
+                StudentSubjectDetail.subjectList.push(StudentSubject);
+            })
+
+            if (IsDuplicate) {
+                StudentSubjectDetail.StudentId = "";
+                StudentSubjectDetail.subjectList = [];
+
+                new PNotify({
+                    title: 'Student Save',
+                    text: "You have selected same Grade or Subject multiple times.",
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                AjaxFunction("post", "/Student/SaveStudentSubjects", "application/x-www-form-urlencoded;charset=UTF-8", "json", StudentSubjectDetail, StudentSaveFun);
+            }
+        })
+
+        //$(".gradeStudentSubject").on("change", function () {
+        //    currentGradeObj = $(this).parents(".studentSubject").find(".subjectStudentSubject");
+        //    AjaxFunction("get", "/Student/GetGradeWiseSubjectList?GradeId=" + $(this).val(), "application/json", "json", "", GetSubjectList);
+        //})
+
+        $(document.body).on("click", ".removeStudentSubject", function () {
+
+            if ($(this).parents(".studentSubject").find(".primaryStudentSubject").prop('checked')) {
+                new PNotify({
+                    title: 'Delete Subject',
+                    text: "Selected Subject is primary subject. Please choose different primary subject and than remove.",
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+            }
+            else {
+                $(this).parents(".studentSubject").find('input, textarea, button, select').attr('disabled', 'disabled');
+                $(this).parents(".studentSubject").addClass("overlay");
+            }
+            //$(this).parents(".studentSubject").hide();
+        })
+
+        $("#TeacherGradeSelection").on("change", function () {
+            if ($("#TeacherGradeSelection").val() != "") {
+                AjaxFunction("Get", "/Teacher/GetGradeWiseSubjectDetails?GradeId=" + $("#TeacherGradeSelection").val() + "&TeacherId=" + $("#TeacherId").val(), "application/json", "json", "", GotSubjectList);
+            }
+        })
+
+        $("#frmTeacherPersonalInfo").submit(function (e) {
+            //e.preventDefault();
+            if ($("#frmTeacherPersonalInfo").parsley().validate()) {
+                $(".LockOn").show();
+                //var StudentPersonalProfile = {
+                //    Id: $("#StudentId").val(),
+                //    Name: $("#Name").val(),
+                //    FromCountry: $("#FromCountries").val(),
+                //    FromState: $("#FromStates").val(),
+                //    LivingCountry: $("#LivingCountries").val(),
+                //    LivingState: $("#LivingStates").val(),
+                //    TimeZone: $("#TimeZone").val(),
+                //    BirthDateOnly: $("#BirthDay").val(),
+                //    BirthMonthOnly: $("#BirthMonth").val(),
+                //    BirthYearOnly: $("#BirthYear").val(),
+                //    Gender: $("#Gender").val()
+                //}
+
+                //AjaxFunction($("#frmStudentPersonalInfo").attr("method"), $("#frmStudentPersonalInfo").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", StudentPersonalProfile, StudentSaveFun);
+            }
+        });
+
+        $("#frmTeacherProfileInfo").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmTeacherProfileInfo").parsley().validate()) {
+
+                var TeacherProfile = {
+                    Id: $("#TeacherId").val(),
+                    ShortDescription: $("#ShortDescription").val(),
+                    LongIntroduction: $("#LongIntroduction").val(),
+                    TeacherSince: $("#TeacherSince").val(),
+                }
+
+                AjaxFunction($("#frmTeacherProfileInfo").attr("method"), $("#frmTeacherProfileInfo").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", TeacherProfile, TeacherSaveFun);
+            }
+        });
+
+        $("#frmTeacherEducation").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmTeacherEducation").parsley().validate()) {
+
+                var TeacherEducation = {
+                    TeacherId: $("#TeacherId").val(),
+                    TeacherEducationId: $("#TeacherEducationId").val(),
+                    UniversityName: $("#UniversityName").val(),
+                    YearOfPass: $("#YearOfPass").val(),
+                    CourseDegreeName: $("#CourseDegreeName").val(),
+                }
+
+                AjaxFunction($("#frmTeacherEducation").attr("method"), $("#frmTeacherEducation").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", TeacherEducation, TeacherEducationSave);
+            }
+        });
+
+        $("#frmTeacherExperience").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmTeacherExperience").parsley().validate()) {
+
+                var TeacherExperience = {
+                    TeacherId: $("#TeacherId").val(),
+                    TeacherExperienceId: $("#TeacherExperienceId").val(),
+                    WorkExperienceName: $("#WorkExperienceName").val(),
+                    WorkExperienceYear: $("#WorkExperienceYear").val(),
+                    WorkExperienceDetails: $("#WorkExperienceDetails").val(),
+                }
+
+                AjaxFunction($("#frmTeacherExperience").attr("method"), $("#frmTeacherExperience").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", TeacherExperience, TeacherExperienceSave);
+            }
+        });
+
+        $("#frmTeacherCertificate").submit(function (e) {
+            //e.preventDefault();
+            if ($("#frmTeacherCertificate").parsley().validate()) {
+                $(".LockOn").show();
+            }
+        });
+
+        $("#frmTeacherSubejcts").submit(function (e) {
+            e.preventDefault();
+            if ($("#frmTeacherSubejcts").parsley().validate()) {
+
+                var countries = [];
+                $.each($(".TeacherSubject option:selected"), function(){
+                    countries.push($(this).val());
+                });
+
+                var TeacherSubjects = {
+                    Id: $("#TeacherId").val(),
+                    GradeId: $("#TeacherGradeSelection").val(),
+                    SelectedSubjects: $(".TeacherSubject").val()
+                }
+
+                AjaxFunction($("#frmTeacherSubejcts").attr("method"), $("#frmTeacherSubejcts").attr("action"), "application/x-www-form-urlencoded;charset=UTF-8", "json", TeacherSubjects, TeacherSaveFun);
+            }
+        });
+    })
+</script>
