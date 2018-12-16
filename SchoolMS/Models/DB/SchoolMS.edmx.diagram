@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="84f11f3d8806454b9c1eefdab09cc345" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="SchoolManagementModel.GeneralSetting" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="SchoolManagementModel.SchoolGrade" Width="1.5" PointX="10.75" PointY="15.375" />
+        <EntityTypeShape EntityType="SchoolManagementModel.SchoolSubject" Width="1.5" PointX="10.75" PointY="19.125" />
+        <EntityTypeShape EntityType="SchoolManagementModel.SliderConfig" Width="1.5" PointX="3" PointY="14.375" />
+        <EntityTypeShape EntityType="SchoolManagementModel.Teacher" Width="1.5" PointX="7.75" PointY="2.875" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherCertificate" Width="1.5" PointX="10" PointY="11.875" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherEducation" Width="1.5" PointX="10" PointY="9" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherSubject" Width="1.5" PointX="13" PointY="5.625" />
+        <EntityTypeShape EntityType="SchoolManagementModel.UserInRole" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="SchoolManagementModel.UserRole" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="SchoolManagementModel.User" Width="1.5" PointX="0.75" PointY="5.75" />
+        <AssociationConnector Association="SchoolManagementModel.FK_GeneralSettings_Users" />
+        <AssociationConnector Association="SchoolManagementModel.FK_GeneralSettings_Users1" />
+        <AssociationConnector Association="SchoolManagementModel.FK_Subject_SchoolGrade" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherSubjects_SchoolGrade" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherSubjects_SchoolSubject" />
+        <AssociationConnector Association="SchoolManagementModel.FK_SliderConfig_Users" />
+        <AssociationConnector Association="SchoolManagementModel.FK_SliderConfig_Users1" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherCertificates_Teacher" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherEducation_Teacher" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherSubjects_Teacher" />
+        <AssociationConnector Association="SchoolManagementModel.FK_UserInRoles_Roles" />
+        <AssociationConnector Association="SchoolManagementModel.FK_UserInRoles_Users" />
+        <AssociationConnector Association="SchoolManagementModel.FK_UserInRoles_Users1" />
+        <AssociationConnector Association="SchoolManagementModel.FK_UserInRoles_Users2" />
+        <AssociationConnector Association="SchoolManagementModel.FK_UserRole_Users" />
+        <AssociationConnector Association="SchoolManagementModel.FK_UserRole_Users1" />
+        <AssociationConnector Association="SchoolManagementModel.FK_Users_Users" />
+        <AssociationConnector Association="SchoolManagementModel.FK_Users_Users1" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherExperience" Width="1.5" PointX="10" PointY="5.75" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherExperience_Teacher" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherProffessionalCourse" Width="1.5" PointX="10.25" PointY="1.75" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherProffessiona_Course_Teacher" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherMaterial" Width="1.5" PointX="13.25" PointY="11.125" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherMaterial_SchoolGrade" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherMaterial_SchoolSubject" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherMaterial_Teacher" />
+        <EntityTypeShape EntityType="SchoolManagementModel.Student" Width="1.5" PointX="10.75" PointY="23.5" />
+        <EntityTypeShape EntityType="SchoolManagementModel.StudentSubject" Width="1.5" PointX="13" PointY="17" />
+        <AssociationConnector Association="SchoolManagementModel.FK_StudentSubject_SchoolGrade" />
+        <AssociationConnector Association="SchoolManagementModel.FK_StudentSubject_SchoolSubject" />
+        <AssociationConnector Association="SchoolManagementModel.FK_StudentSubject_Student" />
+        <EntityTypeShape EntityType="SchoolManagementModel.TeacherRating" Width="1.5" PointX="16" PointY="15.375" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherRating_Student" />
+        <AssociationConnector Association="SchoolManagementModel.FK_TeacherRating_Teacher" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

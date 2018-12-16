@@ -1,0 +1,435 @@
+.teacher-page{width:100%; float:left; padding:40px 0; background:#fff; margin-bottom:40px;}
+.filter_option, .teacher-details-content{width:100%; float:left; padding:0; text-align:center;}
+.filter-title{width:100%; float:left; padding:10px 0; text-align:center;}
+.teacher-details-content{padding:0 0 40px 0; text-align:left;}
+.teacher-card-container{width:100%; float:left; padding:30px; background:#fff; margin-bottom:40px;}
+.teacher-card-left {
+	position: relative;
+	width:65%;
+	cursor: pointer;
+}
+.teacher-card-teacher-type {
+	position: absolute;
+	top:-30px;
+	left:-20px;
+}
+.teacher-card-avatar {
+	float: left;
+	padding:0;
+	width: 140px;
+	text-align: center;
+}
+.teacher-card-rating {
+	margin-top:10px;text-align: center; width:100%;
+}
+.teacher-card-left {
+	cursor: pointer;
+}
+.teacher-card-avatar img {
+	display: block;
+	width: 127px;
+	height: 127px;
+	border-radius: 50%;
+	box-shadow: 0 5px 15px 0 rgba(0,0,0,.2);
+	border: 2px solid #fff;
+}
+.teacher-right-holder{box-shadow: 0 5px 15px 0 rgba(0,0,0,.2); background:#fff; padding:15px; width:100%; margin-bottom:30px; text-align:center;}
+.teacher-right-holder h6{font-size:22px; padding:10px 0; text-align:center;}
+.teacher-card-rating img{display: inline-block;
+	width: auto;
+	height: auto;
+	border-radius:0;
+	box-shadow: 0 0px 0px 0 rgba(0,0,0,.9);
+	border:none;}
+.teacher-card-content{float:left; padding:0 0 0 30px; width:65%;}
+.teacher-card-content h6{margin:0 0 20px 0; font-size:20px; word-break: break-all}
+.half{float:left; padding:0; width:50%;margin:0 0 20px 0;}
+.teacher-card-content p, .half h6{margin:0;}
+.teacher-card-favorite-teacher {
+	position: absolute;
+	top: -20px;
+	right:0px;
+	cursor: pointer;
+}
+.teacher-card-right {
+	position: relative;
+	/* flex: 1; */
+	padding: 0;
+	float: right;
+	width: 35%;
+}
+
+/* Tabs panel */
+.tabbable-panel {
+  border:1px solid #eee;
+  padding: 10px;
+}
+.teacher-card-right .tabbable-line li a.active::before{background:none;}
+/* Default mode */
+.tabbable-line > .nav-tabs {
+  border: none; padding:0;
+  margin: 0px;
+}
+.tabbable-line > .nav-tabs > li {
+  margin-right:15px;
+}
+.tabbable-line > .nav-tabs > li > a {
+  border: 0;
+  margin-right:0;
+  color: #737373; font-size:14px;
+}
+.tabbable-line > .nav-tabs > li > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open, .tabbable-line > .nav-tabs > li:hover {
+  border-bottom: 4px solid #fbcdcf;
+}
+.tabbable-line > .nav-tabs > li.open > a, .tabbable-line > .nav-tabs > li:hover > a {
+  border: 0;
+  background: none !important;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.open > a > i, .tabbable-line > .nav-tabs > li:hover > a > i {
+  color: #a6a6a6;
+}
+.tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0px;
+}
+.tabbable-line > .nav-tabs > li.active {
+  border-bottom: 4px solid #f3565d;
+  position: relative;
+}
+.tabbable-line > .nav-tabs > li.active > a {
+  border: 0;
+  color: #333333;
+}
+.tabbable-line > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+.tabbable-line > .tab-content {
+  margin-top: -3px;
+  background:none;
+  border: 0;
+  border-top: 1px solid #eee;
+  padding: 15px 0;
+}
+.portlet .tabbable-line > .tab-content {
+  padding-bottom: 0;
+}
+.tab-content > .active {
+	display: block;
+	background: no-repeat;
+	padding: 0;
+}
+
+/* Below tabs mode */
+
+.tabbable-line.tabs-below > .nav-tabs > li {
+  border-top: 4px solid transparent;
+}
+.tabbable-line.tabs-below > .nav-tabs > li > a {
+  margin-top: 0;
+}
+.tabbable-line.tabs-below > .nav-tabs > li:hover {
+  border-bottom: 0;
+  border-top: 4px solid #fbcdcf;
+}
+.tabbable-line.tabs-below > .nav-tabs > li.active {
+  margin-bottom: -2px;
+  border-bottom: 0;
+  border-top: 4px solid #f3565d;
+}
+.tabbable-line.tabs-below > .tab-content {
+  margin-top: -10px;
+  border-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+/* teacheer detail */
+.teacher-details-left-content{ padding:50px 0;}
+.video-panel img{ padding:0 0 20px; width:100%;}
+.text-center {
+    text-align: center;
+}
+.is-relative {
+    position: relative;
+}
+.text-muted {
+    color: #777;
+}
+.hidden-phone {
+    display: inherit !important;
+}
+.teacher-profile-page .btn {
+    text-transform: uppercase !important;
+}
+.theme-white .btn {
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.3);
+}
+.online-status.online {
+    color: #79c84d;
+}
+.text-success {
+    color: #46ac46;
+}
+.grid-gutter-margin-b {
+    margin-bottom: 22px;
+}
+.list-inline {
+    padding-left: 0;
+    list-style: none;
+    margin-left: -5px;
+}
+.teacher-profile-page .list-inline > li {
+    padding: 0 6px;
+}
+.color-pro {
+    color: #CC8D00;
+}
+.list-inline > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.teachers-language {
+    font-size: 18px;
+    margin: 20px 0 0;
+}
+ul.profile_card li div.info {
+    background: #efefef;
+    padding: 10px;
+    text-align: center;
+}
+.text-lg {
+    font-size: 23px;
+}
+.teacher-rate {
+    display: inline;
+}
+.text-lg {
+    font-size: 23px;
+}
+.pull-right {
+    float: right;
+}
+.pull-right {
+    float: right !important;
+}
+.text-xs {
+    font-size: 11px;
+}
+.text-xs {
+    font-size: 11px;
+}
+ul.profile_card li {
+    width: 25%;
+    display: block;
+    float: left;
+}
+.about-teacher-full-desc {
+	background: #f4f4f4;
+	padding: 20px;
+	margin: 20px 0;
+	float: left;
+	width: 100%;
+}
+.teacher-detail-right-panel{
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,.2);
+	-webkit-box-shadow: 0 5px 15px 0 rgba(0,0,0,.2);
+    background: #fff;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: left;
+}
+.teacher-detail-right-panel h6{ font-weight:bold; font-size:20px; padding: 0 0 15px 0;}
+.teaching-speciality li {
+    background: #e8e8e8;
+    color: #545454;
+    margin-bottom: 5px;
+    font-weight: 500;
+    display: inline-block;
+    border-radius: 15px;
+    padding: 0 13px;
+    font-size: 14px;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+.text-muted span {
+    font-size: 14px;
+    line-height: 18px;
+    color: #000;
+}
+.text-muted .list-inline li {
+    color: #ff4338;
+    font-size: 14px;
+}
+.certificate{ text-align:center; width:150px;}
+.certificate img{ border:1px solid #dcdcdc; width:300px; background:#FFF; padding:10px;}
+.certificate label{ width:100%; display:inline-block; padding:10px 0 0;}
+
+
+.ep-50{width:50%; float:left; padding-right:10px;}
+.epp-title{width:80%; padding:30px 0 0 0; float:left; text-align:center;}
+.epp-img{display: block; overflow:hidden;
+	width:227px;
+	height:227px;
+	border-radius: 50%;
+	box-shadow: 0 5px 15px 0 rgba(0,0,0,.2);
+	border: 2px solid #fff;}
+	
+	
+	/* about css by Akber*/
+	.about-img{ border:solid 4px #fff; box-shadow: 0 5px 15px 0 rgba(0,0,0,.2); float:left; width:100%; margin-bottom:30px;} 
+	.cms-page ul{ padding-left:20px;}
+	.cms-page{width:100%; padding:50px 0; float:left; background:#fff; margin-bottom:50px;}
+	.cms-page h1{text-align:center; padding:0 0 30px 0;}
+	.cms-page h6{padding:0 0 10px 0; font-size:24px;}
+	img{max-width:100%;}
+	 .contact-info h3{font-size:30px;}
+.getin-touth{float:left; width:100%; border-top:solid 1px #dddddd; margin-top:30px; padding-top:30px;}
+.address-contact{float:left; width:100%; padding:0 0 30px 0;}
+.phone-contact{float:left; width:50%; padding:0;}
+.icon{float:left; padding:10px; border:solid 1px #dddddd; margin-right:20px;}
+.cont-content{float:left; width:76%; padding:0;}
+.cont-content span{font-weight:500; width:100%; float:left;}
+.red{color:#ff0000;}
+.btn input.contact-btn {
+	border: none;
+	background: #ff4338; cursor:pointer;
+	padding: 12px 30px;
+	font-size: 16px;
+	color: #fff;
+	margin: 0;
+}
+.student-language{ 
+    background: #f4f4f4;
+    padding: 20px;
+    margin:0 0 20px 0;
+
+}
+.student-language [type="submit"] {
+    background: #ff4338;
+    padding: 5px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    font-size: 20px;
+    color: #FFF;
+    border: 1px solid #ff4338;
+}
+.student-language [type="submit"]:hover {
+    background: #FFF;
+    border: 1px solid #ff4338;
+    color: #ff4338;
+}
+.control-label {
+    line-height: 40px;
+}
+.student-profile-information input[type="text"], .student-profile-information input[type="file"]{margin:0 0 10px 0;}
+.student-profile-information textarea{ height:150px; margin:0 0 10px 0;}
+.student-profile-information.register-form{ padding:30px 0;}
+.paddiding20{ padding:20px 0;}
+
+.nav {
+    left:0%;
+    margin-left:0px;
+    top:0px;
+    position:relative;
+}
+.nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background:#none;
+}
+.dropdown {
+     
+    width:100%;    
+}
+.dropdown-menu>li>a, .dropdown-menu>li{
+    color:#242424; font-weight:normal; font-size:16px; width:100%; float:left; padding-bottom:4px;
+}
+.dropdown ul.dropdown-menu {
+    border-radius:4px;
+    box-shadow:none;
+    margin-top:20px;
+    width:200px;left:50%;
+    margin-left:-170px;
+    top:30px;
+    position:absolute;
+}
+.dropdown ul.dropdown-menu:before {
+    content: "";
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    z-index: 10;
+}
+.dropdown ul.dropdown-menu:after {
+    content: "";
+    border-bottom: 12px solid #ccc;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    position: absolute;
+    top: -12px;
+    right: 14px;
+    z-index: 9;
+}
+.second-head{ margin-top:-20px;	}
+.user-icon{margin:20px 0 0 0;}
+.stp-img{display: inline-block; overflow:hidden;
+	width:34px;
+	height:34px;
+	  
+	}
+	.student-view-pro li{
+    width: 20%!important;
+    display: block;
+    float: left;
+
+}
+.dropdown-toggle::after {
+    position: absolute;
+    top: 15px;
+}
+.ep-form {
+    float: left;
+    width: 100%;
+    padding-bottom: 10px;
+}
+.ep-50 ul{float:left; width:100%; padding:0px;}
+.ep-50 ul li{float:left; width:auto; padding:0 20px 0 0;}
+.btn-primary{ margin-left:10px;}
+
+.teacher-details-left-content table{
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    display:table;
+}
+#btnRating {
+    margin-top:20px;
+}
+
+.btn-primary {
+    background: #ff4338;
+    border: solid 1px #ff4338;
+    padding: 5px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    font-size: 20px;
+    color: #FFF;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+
+button.close {
+    position: absolute;
+    right: 20px;
+}

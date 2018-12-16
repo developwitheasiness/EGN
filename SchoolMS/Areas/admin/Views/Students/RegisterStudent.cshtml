@@ -1,0 +1,149 @@
+﻿@model SchoolMS.Areas.admin.ViewModel.StudentVM
+
+@{
+    ViewBag.Title = "Student Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Student Registration <small>New (<span class="redimp">*</span> indicated fields are mandatory)</small></h2>
+            <a href="/admin/Students/List" class="btn btn-primary pull-right"><i class="fa fa-backward"></i> Back</a>
+            @*<ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>*@
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+
+                @{
+                    string post;
+                    if (!string.IsNullOrEmpty(Model.Id))
+                    {
+                        post = "put";
+                    }
+                    else
+                    {
+                        post = "post";
+                    }
+                }
+
+                <form class="frmStudent" action="/admin/Students/SaveStudent" method="@post" enctype="multipart/form-data">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6 form-group">
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.LabelFor(model => model.Name)
+                            <span class="red">*</span>
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Enter Full Name", @required = "required" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(model => model.Email)
+                            <span class="red">*</span>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Enter Email", @required = "required", @data_parsley_pattern = @"^([0-9a-zA-Z]([\+\-_\.][0-9a-zA-Z]+)*)+@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,3})$", @data_parsley_pattern_message = "Invalid email" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(model => model.NativeLanguage)
+                            @Html.TextBoxFor(model => model.NativeLanguage, new { @class = "form-control", @placeholder = "Enter Nativae Language" })
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(model => model.FromAddress)
+                            @Html.TextAreaFor(model => model.FromAddress, new { @class = "form-control", @placeholder = "Enter From Address", @style = "resize:none; height:80px" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            <label>Living Address</label>
+                            @Html.TextAreaFor(model => model.LivingAddress, new { @class = "form-control", @placeholder = "Enter Living Address", @style = "resize:none; height:80px " })
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 col-xs-2 form-group">
+                            <label>Choose Gender</label>
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(model => model.Gender, 0, new { @class = "flat" }) Male
+                                    @*<input type="radio" class="flat" checked name="Gender">*@
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(model => model.Gender, 1, new { @class = "flat" }) Female
+                                    @*<input type="radio" class="flat" name="Gender"> Female*@
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 col-xs-2 form-group">
+                            <label>Upload Student Photo</label>
+                            <input type="file" name="file" id="file" src="@Model.ProfilePhoto" onchange="encodeImageFileAsURL(this)" placeholder="Image" aria-required="true" accept="image/png,image/jpeg,image/jpg,image/bmp">
+                        </div>
+
+                        <div class="col-md-2 col-sm-2 col-xs-2 form-group">
+                            <img src="@Url.Content(Model.ProfilePhoto)" height="100" width="100" alt="no image available" class="pull-right previewimage" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(Model => Model.Skype)
+                            @Html.TextBoxFor(model => model.Skype, new { @class = "form-control", @placeholder = "Enter Skype ID" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(Model => Model.Facetime)
+                            @Html.TextBoxFor(model => model.Facetime, new { @class = "form-control", @placeholder = "Enter Facetime ID" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(Model => Model.GoogleHangout)
+                            @Html.TextBoxFor(model => model.GoogleHangout, new { @class = "form-control", @placeholder = "Enter GoogleHangout ID" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(Model => Model.QQ)
+                            @Html.TextBoxFor(model => model.QQ, new { @class = "form-control", @placeholder = "Enter your QQ" })
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            @Html.LabelFor(Model => Model.Webchat)
+                            @Html.TextBoxFor(model => model.Webchat, new { @class = "form-control", @placeholder = "Enter Webchat ID" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            <label>Timezone</label>
+                            @Html.DropDownListFor(model => model.TimeZone, Model.TimeZoneInfos, "-- Select Timezone --", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            <label>School Grade</label>
+                            @Html.TextBoxFor(model => model.SchoolGrade, new { @class = "form-control", @placeholder = "School Grade" })
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group">
+                            <label>Birth Date</label>
+                            @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control", @placeholder = "Birth Date" })
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <input type="submit" value="Save" class="btn btn-success pull-right btnStudentSubmit" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Areas/admin/PageScripts/Student/Student.js"></script>
